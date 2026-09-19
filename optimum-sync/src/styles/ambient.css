@@ -1,0 +1,259 @@
+/* =========================================================
+   OPTIMUM SYNC — AMBIENT BACKGROUND
+   ========================================================= */
+
+.ambient-background {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 0;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(32, 159, 227, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 75%,
+      rgba(94, 234, 212, 0.05),
+      transparent 25%
+    );
+}
+
+
+/* =========================================================
+   AMBIENT ORBS
+   ========================================================= */
+
+.ambient-orb {
+  position: absolute;
+
+  border-radius: 9999px;
+
+  pointer-events: none;
+
+  filter: blur(80px);
+
+  will-change: transform;
+}
+
+.ambient-orb--blue {
+  width: 320px;
+  height: 320px;
+
+  top: 8%;
+  left: -120px;
+
+  background:
+    rgba(32, 159, 227, 0.07);
+
+  animation:
+    ambientBlue
+    18s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+.ambient-orb--mint {
+  width: 300px;
+  height: 300px;
+
+  right: -100px;
+  top: 45%;
+
+  background:
+    rgba(94, 234, 212, 0.055);
+
+  animation:
+    ambientMint
+    20s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+.ambient-orb--sky {
+  width: 240px;
+  height: 240px;
+
+  left: 45%;
+  bottom: -100px;
+
+  background:
+    rgba(56, 189, 248, 0.045);
+
+  animation:
+    ambientSky
+    16s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+/* =========================================================
+   AMBIENT GRID
+   ========================================================= */
+
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.12;
+
+  background-image:
+    linear-gradient(
+      rgba(32, 159, 227, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(32, 159, 227, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 100px 100px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent,
+      black 25%,
+      black 75%,
+      transparent
+    );
+
+  animation:
+    ambientGrid
+    30s
+    linear
+    infinite;
+}
+
+
+/* =========================================================
+   SOFT LIGHT
+   ========================================================= */
+
+.ambient-light {
+  position: absolute;
+
+  width: 40vw;
+  height: 40vw;
+
+  max-width: 550px;
+  max-height: 550px;
+
+  border-radius: 50%;
+
+  left: 50%;
+  top: 30%;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(32, 159, 227, 0.035),
+      transparent 70%
+    );
+
+  animation:
+    ambientPulse
+    10s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes ambientBlue {
+  from {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate(180px, 100px)
+      scale(1.2);
+  }
+}
+
+@keyframes ambientMint {
+  from {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate(-150px, -80px)
+      scale(1.15);
+  }
+}
+
+@keyframes ambientSky {
+  from {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate(100px, -70px)
+      scale(1.2);
+  }
+}
+
+@keyframes ambientGrid {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100px);
+  }
+}
+
+@keyframes ambientPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1.15);
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb,
+  .ambient-grid,
+  .ambient-light {
+    animation: none;
+  }
+}
