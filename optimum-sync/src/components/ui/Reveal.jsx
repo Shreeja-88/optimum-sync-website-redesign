@@ -12,6 +12,7 @@ export default function Reveal({ as: Tag = "div", delay = 0, className = "", chi
     if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce || !("IntersectionObserver" in window)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShown(true);
       return;
     }
