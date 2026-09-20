@@ -1,0 +1,240 @@
+/* ------------------------------------------------------------------
+   Tokens = the team palette. Scoped to .os-about so nothing leaks out.
+   ------------------------------------------------------------------ */
+.os-about {
+  --os-ink: #111827;
+  --os-charcoal: #1f2937;
+  --os-brand: #209fe3;
+  --os-brand-dark: #1479b0;
+  --os-brand-light: #38bdf8;
+  --os-mint: #5eead4;
+  --os-sky-blue: #93c5fd;
+  --os-pale-blue: #e6f7ff;
+  --os-pale-mint: #e8fbf6;
+  --os-off-white: #f8fafc;
+  --os-light-gray: #e2e8f0;
+  --os-slate: #94a3b8;
+  --os-text-secondary: #64748b;
+
+  /* Filled buttons. White text on brand (#209FE3) is only 2.95:1 contrast (minimum is 4.5:1),
+     so buttons use brand-dark (4.8:1). To match the rest of the site exactly,
+     change --os-btn-bg to var(--os-brand). */
+  --os-btn-bg: var(--os-brand-dark);
+  --os-btn-fg: #ffffff;
+  --os-btn-hover: var(--os-ink);
+
+  color: var(--os-text-secondary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.os-about h1,
+.os-about h2,
+.os-about h3 {
+  color: var(--os-ink);
+}
+
+/* Section backgrounds and text roles */
+.os-bg-off-white {
+  background: var(--os-off-white);
+}
+.os-bg-pale-blue {
+  background: var(--os-pale-blue);
+}
+.os-bg-pale-mint {
+  background: var(--os-pale-mint);
+}
+.os-bg-charcoal {
+  background: var(--os-charcoal);
+  color: rgba(255, 255, 255, 0.78);
+}
+.os-bg-charcoal h2,
+.os-bg-charcoal h3 {
+  color: #ffffff;
+}
+
+/* Body text on tinted backgrounds needs more contrast than text-secondary gives */
+.os-text-strong {
+  color: var(--os-charcoal);
+}
+.os-text-brand {
+  color: var(--os-brand-dark);
+}
+
+.os-rules {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.5);
+}
+.os-rules > li {
+  border-top: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+/* Process: last step gets the mint highlight */
+.os-node-final {
+  background: var(--os-mint);
+  color: var(--os-ink);
+}
+
+/* ------------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------------ */
+.os-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+.os-btn:focus-visible {
+  outline: 3px solid var(--os-brand-dark);
+  outline-offset: 3px;
+}
+.os-btn-primary {
+  background: var(--os-btn-bg);
+  color: var(--os-btn-fg);
+}
+.os-btn-primary:hover {
+  background: var(--os-btn-hover);
+}
+.os-btn-ghost {
+  background: #ffffff;
+  color: var(--os-ink);
+  border: 1px solid var(--os-light-gray);
+}
+.os-btn-ghost:hover {
+  border-color: var(--os-ink);
+}
+
+/* ------------------------------------------------------------------
+   Why Us: image cards in a single row (plain CSS so layout never depends on Tailwind scanning)
+   Mobile: 1 column. Tablet: 2 columns. Desktop (1024px+): one row, --os-cols wide.
+   ------------------------------------------------------------------ */
+.os-why-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  margin: 3.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 640px) {
+  .os-why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .os-why-grid {
+    grid-template-columns: repeat(var(--os-cols, 4), minmax(0, 1fr));
+  }
+}
+.os-why-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--os-light-gray);
+  border-radius: 0.75rem;
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.05),
+    0 6px 16px rgba(17, 24, 39, 0.06);
+}
+.os-why-media {
+  aspect-ratio: 16 / 10;
+  background: var(--os-pale-blue);
+}
+.os-why-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.os-why-media--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--os-text-secondary);
+  background: linear-gradient(135deg, var(--os-pale-blue), var(--os-pale-mint));
+}
+.os-why-body {
+  padding: 1.5rem;
+}
+.os-why-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.os-why-text {
+  margin: 0.5rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------------
+   Hero waves: hidden until scrolled into view, then drawn left to right.
+   The .os-waves--play class is added/removed by SyncWaves.tsx on every visit.
+   ------------------------------------------------------------------ */
+@keyframes os-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.os-waves {
+  clip-path: inset(0 100% 0 0);
+}
+.os-waves--play {
+  animation: os-reveal 1.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-waves {
+    clip-path: none;
+  }
+  .os-waves--play {
+    animation: none;
+  }
+}
+
+/* Typed captions under the hero waves */
+.os-text-ink {
+  color: var(--os-ink);
+}
+.os-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-right: -2px;
+  vertical-align: -0.12em;
+  background: var(--os-brand);
+}
+
+/* Calm scroll effect (see Forming.tsx) */
+.os-fade {
+  display: block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.os-fade.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
