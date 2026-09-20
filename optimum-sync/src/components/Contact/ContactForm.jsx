@@ -63,13 +63,13 @@ export default function ContactForm() {
         </p>
         <ul className="mt-6 space-y-2 text-charcoal">
           <li>
-            <span className="font-semibold">Email:</span> hello@optimumsync.com
+            <span className="font-semibold">Email:</span> office@optimumsync.com
           </li>
           <li>
-            <span className="font-semibold">Phone:</span> +91 00000 00000
+            <span className="font-semibold">Phone:</span> +91 99803 36484
           </li>
           <li>
-            <span className="font-semibold">Location:</span> Mysuru, Karnataka, India
+            <span className="font-semibold">Location:</span>#01, 2nd Floor, NIE Startup and Incubation Center,NIE college South Campus,Mananthavadi Road, Mysuru 570008
           </li>
         </ul>
       </div>
