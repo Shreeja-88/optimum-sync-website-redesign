@@ -25,7 +25,7 @@ export const story = {
 // (its card is included below, commented out: remove the // marks to bring it back).
 // `image` is a path under /public. `imageAlt` describes it for screen readers.
 export const whyUs = {
-  title: "Engineered for performance & speed.",
+  title: "Why choose us.",
   intro: "Clean, production-ready code, delivered at maximum velocity.",
   items: [
     {
@@ -36,7 +36,7 @@ export const whyUs = {
     },
     {
       title: "Global Reach",
-      text: "Software built for businesses across regions, with clear communication at every step.",
+      text: "We connect businesses around the world through dependable digital solutions.",
       image: "/why-us/global-reach.jpeg",
       imageAlt: "A globe showing connected regions",
     },
@@ -61,7 +61,7 @@ export const whyUs = {
 };
 
 export const workflow = {
-  title: "How a project runs",
+  title: "How we run projects",
   intro: "Four stages, each with something you can open, click and review.",
   steps: [
     {
