@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useReveal from "../../hooks/useReveal";
 import { AUDIENCE, STATS } from "../../data/homeContent";
+import Photo from "./Photo";
 import { Building, Shield, Briefcase, Heart, ArrowUpRight } from "./Icons";
 
 const ICONS = { building: Building, shield: Shield, briefcase: Briefcase, heart: Heart };
 
+// Pick an industry, and one large photo stage crossfades to it.
 export default function Audience() {
-  const [open, setOpen] = useState(AUDIENCE[0].key);
-  const [ref, visible] = useReveal(0.2);
+  const [key, setKey] = useState(AUDIENCE[0].key);
+  const current = AUDIENCE.find((a) => a.key === key);
 
   return (
     <section className="section audience" aria-labelledby="audience-title">
@@ -28,33 +29,33 @@ export default function Audience() {
           </dl>
         </div>
 
-        <div className="panels" ref={ref}>
-          {AUDIENCE.map((a, i) => {
-            const isOpen = open === a.key;
+        <div className="tabs" role="group" aria-label="Industries we serve">
+          {AUDIENCE.map((a) => {
             const Icon = ICONS[a.icon];
             return (
-              <article
-                key={a.key}
-                className={`panel reveal${visible ? " is-visible" : ""}${isOpen ? " is-open" : ""}`}
-                style={{ "--tint": a.tint, "--edge": a.edge, "--i": i }}
+              <button
+                key={a.key} type="button"
+                className={a.key === key ? "is-on" : ""} aria-pressed={a.key === key}
+                onClick={() => setKey(a.key)}
               >
-                <button
-                  type="button" className="panel__head"
-                  aria-expanded={isOpen} aria-controls={`panel-${a.key}`}
-                  onClick={() => setOpen(a.key)} onMouseEnter={() => setOpen(a.key)}
-                >
-                  <span className="panel__icon"><Icon size={22} /></span>
-                  <span className="panel__title">{a.title}</span>
-                </button>
-                <div className="panel__body" id={`panel-${a.key}`} aria-hidden={!isOpen}>
-                  <p>{a.text}</p>
-                  <Link to={a.to} tabIndex={isOpen ? 0 : -1} className="panel__link">
-                    Case studies <ArrowUpRight size={16} />
-                  </Link>
-                </div>
-              </article>
+                <span className="tabs__icon"><Icon size={16} /></span>
+                {a.title}
+              </button>
             );
           })}
+        </div>
+
+        <div className="stage" style={{ "--fallback": current.fallback }}>
+          {AUDIENCE.map((a) => (
+            <Photo key={a.key} src={a.image} className={`stage__img${a.key === key ? " is-on" : ""}`} />
+          ))}
+          <div className="stage__copy" key={current.key} aria-live="polite">
+            <h3>{current.title}</h3>
+            <p>{current.text}</p>
+            <Link to={current.to} className="panel__link">
+              Case studies <ArrowUpRight size={16} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

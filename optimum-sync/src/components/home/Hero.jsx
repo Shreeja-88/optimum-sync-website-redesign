@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { HERO, SERVICES } from "../../data/homeContent";
 
 // The hero's one big idea: the four services are layers of a single system,
-// echoing the isometric cube in the Optimum Sync logo. Layers drop in and
-// lock together on load; hovering a service lifts its layer.
+// echoing the isometric cube in the Optimum Sync logo. Each layer wears its
+// service photo. Layers drop in and lock together on load; hovering a service
+// lifts its layer.
 export default function Hero() {
   const [active, setActive] = useState(null);
   const current = SERVICES.find((s) => s.key === active);
@@ -32,7 +33,7 @@ export default function Hero() {
                 <span
                   key={s.key}
                   className={`slab${active === s.key ? " is-active" : ""}`}
-                  style={{ "--layer": s.layer, "--fill": s.fill, "--edge": s.edge }}
+                  style={{ "--layer": s.layer, "--fill": s.fill, "--edge": s.edge, "--photo": s.image ? `url("${s.image}")` : "none" }}
                 />
               ))}
             </div>
