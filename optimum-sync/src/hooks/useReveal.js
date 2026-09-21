@@ -2,24 +2,26 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Adds an "is visible" flag once the element scrolls into view (runs once).
- * Skips the animation entirely if the user prefers reduced motion.
+ * If the user prefers reduced motion (or the browser has no IntersectionObserver),
+ * the element starts as visible and no animation runs.
  *
  * const [ref, visible] = useReveal();
  * <div ref={ref} className={`reveal ${visible ? "is-visible" : ""}`} />
  */
 export default function useReveal(threshold = 0.15) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+
+  // Decide the starting value up front, not inside an effect.
+  const [visible, setVisible] = useState(
+    () =>
+      typeof window === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !("IntersectionObserver" in window)
+  );
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce || !("IntersectionObserver" in window)) {
-      setVisible(true);
-      return;
-    }
+    if (!el || visible) return;
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -32,7 +34,7 @@ export default function useReveal(threshold = 0.15) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [threshold]);
+  }, [threshold, visible]);
 
   return [ref, visible];
 }
