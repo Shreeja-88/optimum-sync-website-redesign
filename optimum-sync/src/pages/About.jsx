@@ -3,7 +3,6 @@ import AboutHero from "../components/about/AboutHero";
 import Story from "../components/about/Story";
 import WhyUs from "../components/about/WhyUs";
 import Process from "../components/about/Process";
-import AboutCTA from "../components/about/AboutCTA";
 import "../components/about/about.css";
 
 // P4 builds this page. Keep the section ids: the footer links to #why-us.
@@ -15,7 +14,6 @@ export default function About() {
       <Story />
       <WhyUs />
       <Process />
-      <AboutCTA />
     </div>
   );
 }
