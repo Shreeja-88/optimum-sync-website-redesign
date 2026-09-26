@@ -20,7 +20,7 @@ export default function Hero() {
           <h1 id="hero-title">{HERO.title}</h1>
           <p className="hero__lead">{HERO.text}</p>
           <div className="hero__actions">
-            <Link to="/contact" className="btn btn--primary">Contact Us</Link>
+            <Link to="/contact" className="btn btn--primary">Start a Conversation</Link>
             <a href="#projects" className="btn btn--secondary">See our work</a>
           </div>
         </div>
