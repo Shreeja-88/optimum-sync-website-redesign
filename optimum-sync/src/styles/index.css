@@ -1,35 +1,46 @@
 @import "tailwindcss";
 
+/* =========================================================
+   OPTIMUM SYNC — GLOBAL DESIGN SYSTEM
+   ========================================================= */
+
 @theme {
+  /* Brand */
   --color-brand: #209fe3;
   --color-brand-light: #38bdf8;
   --color-brand-dark: #1479b0;
   --color-mint: #5eead4;
 
+  /* Core */
   --color-white: #ffffff;
   --color-charcoal: #1f2937;
   --color-ink: #111827;
 
+  /* Backgrounds */
   --color-pale-blue: #e6f7ff;
   --color-pale-mint: #e8fbf6;
   --color-off-white: #f8fafc;
   --color-soft-gray: #f1f5f9;
   --color-light-gray: #e2e8f0;
 
+  /* Text */
   --color-text-primary: #111827;
   --color-text-secondary: #64748b;
   --color-text-muted: #94a3b8;
   --color-slate: #94a3b8;
 
+  /* Status */
   --color-success: #10b981;
   --color-error: #f87171;
   --color-warning: #fbbf24;
   --color-info: #a78bfa;
 
+  /* Supporting palette */
   --color-sky-blue: #93c5fd;
   --color-teal-mint: #a7f3d0;
   --color-lavender: #c7d2fe;
 
+  /* Typography */
   --font-sans:
     "Inter",
     ui-sans-serif,
@@ -39,6 +50,34 @@
     "Segoe UI",
     sans-serif;
 }
+
+/* =========================================================
+   ROOT MOTION VARIABLES
+   ========================================================= */
+
+:root {
+  --motion-fast: 180ms;
+  --motion-base: 240ms;
+  --motion-slow: 320ms;
+
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --nav-dark: #091d2a;
+  --nav-darker: #06131b;
+
+  --nav-text: #f8fafc;
+  --nav-text-secondary: #cbd5e1;
+  --nav-text-muted: #94a3b8;
+
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-surface: rgba(255, 255, 255, 0.035);
+  --nav-surface-hover: rgba(32, 159, 227, 0.06);
+}
+
+/* =========================================================
+   GRADIENT UTILITIES
+   ========================================================= */
 
 @utility bg-blue-gradient {
   background-image: linear-gradient(
@@ -57,21 +96,98 @@
   );
 }
 
-@import "./footer.css";
-@import "./navbar.css";
-@import "./loader.css";
-@import "./ambient.css";
-@import "./cta.css";
+/* =========================================================
+   GLOBAL ANIMATIONS
+   ========================================================= */
+
+@keyframes nav-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ambient-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(18px, -12px, 0) scale(1.08);
+  }
+}
+
+@keyframes brand-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes reveal-up {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave-drift {
+  0% {
+    transform: translateX(-10%) scaleX(1.02);
+  }
+
+  50% {
+    transform: translateX(10%) scaleX(1.06);
+  }
+
+  100% {
+    transform: translateX(-10%) scaleX(1.02);
+  }
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
 
 html {
   scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+
   background: #ffffff;
   color: #111827;
+
   font-family:
     "Inter",
     ui-sans-serif,
@@ -80,12 +196,22 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Prevent accidental horizontal scrolling */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 ::selection {
@@ -93,19 +219,52 @@ body {
   color: #111827;
 }
 
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
 :focus-visible {
   outline: 2px solid #209fe3;
   outline-offset: 3px;
 }
 
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+/* =========================================================
+   MEDIA
+   ========================================================= */
+
 img {
+  display: block;
   max-width: 100%;
 }
+
+svg {
+  display: block;
+}
+
+/* =========================================================
+   LINKS
+   ========================================================= */
 
 a {
   color: inherit;
   text-decoration: none;
 }
+
+/* =========================================================
+   SITE SHELL
+   ========================================================= */
 
 .site-shell {
   position: relative;
@@ -113,17 +272,204 @@ a {
   overflow-x: clip;
 }
 
+/* =========================================================
+   SCREEN READER ONLY
+   ========================================================= */
+
 .sr-only {
   position: absolute;
+
   width: 1px;
   height: 1px;
+
   padding: 0;
   margin: -1px;
+
   overflow: hidden;
+
   clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+
   white-space: nowrap;
   border: 0;
 }
+
+/* =========================================================
+   NAVIGATION — DESKTOP SHELL
+   ========================================================= */
+
+.nav-shell {
+  position: relative;
+  z-index: 10;
+}
+
+.nav-shell::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.62),
+      rgba(255, 255, 255, 0.22)
+    );
+
+  z-index: -1;
+}
+
+/* =========================================================
+   NAVIGATION — MOBILE DRAWER SUPPORT
+   ========================================================= */
+
+.mobile-nav-text {
+  color: var(--nav-text);
+}
+
+.mobile-nav-secondary {
+  color: var(--nav-text-secondary);
+}
+
+.mobile-nav-muted {
+  color: var(--nav-text-muted);
+}
+
+.mobile-nav-card {
+  border: 1px solid var(--nav-border);
+  background: var(--nav-surface);
+  color: var(--nav-text);
+  transition:
+    transform var(--motion-base) var(--ease-standard),
+    background-color var(--motion-base) var(--ease-standard),
+    border-color var(--motion-base) var(--ease-standard),
+    box-shadow var(--motion-base) var(--ease-standard);
+}
+
+.mobile-nav-card:hover {
+  border-color: rgba(32, 159, 227, 0.3);
+  background: var(--nav-surface-hover);
+}
+
+.mobile-nav-card:active {
+  transform: scale(0.985);
+}
+
+/* =========================================================
+   MOTION COMPONENTS
+   ========================================================= */
+
+.motion-button,
+.motion-link,
+.motion-card,
+.motion-social,
+.motion-address {
+  transition-duration: var(--motion-base);
+  transition-timing-function: var(--ease-standard);
+}
+
+.motion-link {
+  transition-property:
+    transform,
+    color,
+    background-color,
+    border-color,
+    box-shadow,
+    opacity;
+}
+
+.motion-button {
+  transition-property:
+    transform,
+    box-shadow,
+    background-color,
+    border-color,
+    color,
+    opacity;
+}
+
+.motion-card {
+  transition-property:
+    transform,
+    box-shadow,
+    border-color,
+    background-color,
+    opacity;
+}
+
+.motion-social,
+.motion-address {
+  transition-property:
+    transform,
+    color,
+    border-color,
+    background-color,
+    box-shadow,
+    opacity;
+}
+
+/* =========================================================
+   REVEAL ANIMATION
+   ========================================================= */
+
+.reveal-item {
+  animation: reveal-up 0.7s var(--ease-emphasized) both;
+}
+
+/* =========================================================
+   CUSTOM SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(32, 159, 227, 0.28);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 159, 227, 0.5);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(32, 159, 227, 0.35) #f8fafc;
+}
+
+/* =========================================================
+   MOBILE NAVIGATION SCROLLBAR
+   ========================================================= */
+
+.mobile-nav-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(32, 159, 227, 0.3) transparent;
+}
+
+.mobile-nav-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mobile-nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-nav-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(32, 159, 227, 0.3);
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -138,4 +484,87 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .ambient-orb,
+  .ambient-wave,
+  .loader-shell,
+  .loader-panel,
+  .loader-mark,
+  .loader-logo,
+  .loader-brand,
+  .loader-bar,
+  .loader-copy {
+    animation: none !important;
+  }
 }
+
+/* =========================================================
+   MOBILE RESPONSIVE POLISH
+   ========================================================= */
+
+@media (max-width: 640px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    min-width: 320px;
+    overflow-x: hidden;
+  }
+
+  /* Avoid overly large text caused by browser settings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  /* Better touch interaction */
+  button,
+  a {
+    touch-action: manipulation;
+  }
+}
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* =========================================================
+   GLOBAL PRINT SAFETY
+   ========================================================= */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #7281a2;
+  }
+}
+
+/* =========================================================
+   PROJECT CSS IMPORTS
+   Keep these after the global foundation.
+   ========================================================= */
+
+@import "./footer.css";
+@import "./navbar.css";
+@import "./loader.css";
+@import "./ambient.css";
+@import "./cta.css";

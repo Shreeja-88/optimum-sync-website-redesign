@@ -26,7 +26,7 @@ function CTASection() {
           </div>
 
           <h2 className="site-cta__title">
-            Let's build something{" "}
+            Let&apos;s build something{" "}
             <span>meaningful.</span>
           </h2>
 
@@ -38,8 +38,9 @@ function CTASection() {
         <div className="site-cta__right">
 
           <p className="site-cta__description">
-            Have an idea, project, or challenge?
-            Let's turn it into something real.
+            Have an idea, challenge, or roadmap?
+            We&apos;ll help turn it into a clear,
+            high-impact digital solution.
           </p>
 
           <a
@@ -48,7 +49,7 @@ function CTASection() {
           >
 
             <span>
-              Let's Talk
+              Start a Conversation
             </span>
 
             <span className="site-cta__arrow">
