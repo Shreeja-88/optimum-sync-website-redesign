@@ -2,20 +2,28 @@ import { useState } from "react";
 
 const faqs = [
   {
-    q: "How quickly will I hear back after submitting the form?",
-    a: "We typically respond within 1-2 business days.",
+    q: "What does Optimum Sync do?",
+    a: "We design and develop websites, mobile applications, custom software, e-commerce platforms, AI solutions, and cloud-based systems for businesses.",
   },
   {
-    q: "Do you offer a free consultation?",
-    a: "Yes — use the Book a Consultation option to schedule a free intro call.",
+    q: "Can you build a product from scratch?",
+    a: "Yes. We can take a project from idea and requirements through design, development, testing, deployment and support.",
   },
   {
-    q: "What industries do you work with?",
-    a: "We work across a range of industries; reach out and tell us about your project.",
+    q: "Do you work with startups?",
+    a: "Yes. We work with startups, entrepreneurs, growing businesses and established companies.",
   },
   {
-    q: "How does Optimum Sync work?",
-    a: "Optimum Sync brings your essential workflows and information together in one place, helping your team stay connected and productive.",
+    q: "Can you work with our existing software?",
+    a: "Yes. We can improve, integrate, maintain or rebuild existing applications depending on requirements.",
+  },
+  {
+    q: "Do you provide ongoing support?",
+    a: "Yes. We can provide maintenance, updates, bug fixes, performance improvements and further development after launch.",
+  },
+  {
+    q: "How do we start a project?",
+    a: "Tell us what you're trying to build or improve. We'll discuss your requirements and determine the appropriate next steps.",
   },
 ];
 
