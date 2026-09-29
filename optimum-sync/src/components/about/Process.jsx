@@ -6,20 +6,24 @@ export default function Process() {
   return (
     <section className="os-bg-charcoal">
       <div className="mx-auto w-full max-w-6xl px-6 py-20 md:px-10 md:py-28">
+        <p className="os-eyebrow">How we work</p>
         <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-[-0.02em] md:text-5xl">
-          <Forming>{workflow.title}</Forming>
+          <Forming>
+            <span className="os-accent-text">{workflow.title}</span>
+          </Forming>
         </h2>
         <p className="mt-5 max-w-xl text-lg leading-relaxed">
           <Forming>{workflow.intro}</Forming>
         </p>
 
-        <ol className="mt-16 grid gap-12 md:grid-cols-4 md:gap-8">
+        {/* 1 column on phones, 3 on tablets (two rows), all 6 in one row on large screens. */}
+        <ol className="mt-16 grid gap-12 md:grid-cols-3 md:gap-x-8 lg:grid-cols-6">
           {workflow.steps.map((step, i) => (
             <li key={step.title} className="relative">
               {i < last && (
                 <span
                   aria-hidden="true"
-                  className="absolute left-14 top-5 hidden h-px w-[calc(100%-3.5rem+2rem)] bg-white/25 md:block"
+                  className="absolute left-14 top-5 hidden h-px w-[calc(100%-3.5rem+2rem)] bg-white/25 lg:block"
                 />
               )}
               <span
@@ -27,12 +31,12 @@ export default function Process() {
                   i === last ? "os-node-final" : "border border-white/40 text-white"
                 }`}
               >
-                {i + 1}
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-5 text-xl font-semibold">
+              <h3 className="mt-5 text-lg font-semibold">
                 <Forming>{step.title}</Forming>
               </h3>
-              <p className="mt-2 leading-relaxed">
+              <p className="mt-2 text-[0.95rem] leading-relaxed">
                 <Forming>{step.text}</Forming>
               </p>
             </li>

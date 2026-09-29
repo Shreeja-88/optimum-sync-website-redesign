@@ -47,10 +47,6 @@
   background: var(--os-charcoal);
   color: rgba(255, 255, 255, 0.78);
 }
-.os-bg-charcoal h2,
-.os-bg-charcoal h3 {
-  color: #ffffff;
-}
 
 /* Body text on tinted backgrounds needs more contrast than text-secondary gives */
 .os-text-strong {
@@ -74,40 +70,51 @@
 }
 
 /* ------------------------------------------------------------------
-   Buttons
+   Buttons — oval, blue (primary) / mint (ghost)
    ------------------------------------------------------------------ */
 .os-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 1.5rem;
-  border-radius: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1;
   text-decoration: none;
   transition:
     background-color 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 .os-btn:focus-visible {
   outline: 3px solid var(--os-brand-dark);
   outline-offset: 3px;
 }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .os-btn:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* "Let's talk": blue, white text */
 .os-btn-primary {
-  background: var(--os-btn-bg);
-  color: var(--os-btn-fg);
+  background: var(--os-brand-dark);
+  color: #ffffff;
+  border: 1px solid transparent;
 }
 .os-btn-primary:hover {
-  background: var(--os-btn-hover);
+  background: #0f6799;
 }
+
+/* "Why Optimum Sync": mint, dark text */
 .os-btn-ghost {
-  background: #ffffff;
+  background: var(--os-mint);
   color: var(--os-ink);
-  border: 1px solid var(--os-light-gray);
+  border: 1px solid transparent;
 }
 .os-btn-ghost:hover {
-  border-color: var(--os-ink);
+  background: #2dd4bf;
 }
 
 /* ------------------------------------------------------------------
@@ -142,16 +149,23 @@
   box-shadow:
     0 1px 2px rgba(17, 24, 39, 0.05),
     0 6px 16px rgba(17, 24, 39, 0.06);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 .os-why-media {
   aspect-ratio: 16 / 10;
   background: var(--os-pale-blue);
+  overflow: hidden;
+  flex-shrink: 0; /* keeps every card's image the same height, even if the title/text wraps differently */
 }
 .os-why-media img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 .os-why-media--empty {
   display: flex;
@@ -178,9 +192,33 @@
   line-height: 1.6;
 }
 
+/* Card lift + image zoom on hover (skipped on touch devices and reduced-motion) */
+@media (hover: hover) {
+  .os-why-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(32, 159, 227, 0.45);
+    box-shadow:
+      0 2px 4px rgba(17, 24, 39, 0.05),
+      0 18px 36px -12px rgba(20, 121, 176, 0.35);
+  }
+  .os-why-card:hover .os-why-media img {
+    transform: scale(1.04);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-why-card,
+  .os-why-media img {
+    transition: none;
+  }
+  .os-why-card:hover,
+  .os-why-card:hover .os-why-media img {
+    transform: none;
+  }
+}
+
 /* ------------------------------------------------------------------
    Hero waves: hidden until scrolled into view, then drawn left to right.
-   The .os-waves--play class is added/removed by SyncWaves.tsx on every visit.
+   The .os-waves--play class is added/removed by SyncWaves.jsx on every visit.
    ------------------------------------------------------------------ */
 @keyframes os-reveal {
   from {
@@ -218,7 +256,7 @@
   background: var(--os-brand);
 }
 
-/* Calm scroll effect (see Forming.tsx) */
+/* Calm scroll effect (see Forming.jsx) */
 .os-fade {
   display: block;
   opacity: 0;
@@ -237,4 +275,245 @@
     transform: none;
     transition: none;
   }
+}
+
+/* ------------------------------------------------------------------
+   Richer look: eyebrow labels, hero background, accent headline, wave card
+   ------------------------------------------------------------------ */
+
+/* Small label above a heading, with a short line before it */
+.os-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--os-text-secondary);
+}
+.os-eyebrow::before {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: var(--os-brand);
+}
+.os-bg-charcoal .os-eyebrow {
+  color: rgba(255, 255, 255, 0.7);
+}
+.os-bg-charcoal .os-eyebrow::before {
+  background: var(--os-mint);
+}
+
+/* Soft colour glows plus a faint grid that fades out downwards.
+   Applied to the hero, and reused (flipped) on the Why Us section. */
+.os-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.os-hero::before,
+.os-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.os-hero::before {
+  background:
+    radial-gradient(60rem 30rem at 0% 0%, rgba(147, 197, 253, 0.38), transparent 60%),
+    radial-gradient(50rem 28rem at 100% 100%, rgba(94, 234, 212, 0.3), transparent 60%);
+}
+.os-hero::after {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 70%);
+  mask-image: linear-gradient(to bottom, #000, transparent 70%);
+}
+
+/* Why Us section reuses the hero glow/grid, with the coloured corners swapped
+   so it doesn't look like a copy-paste of the hero. */
+.os-hero--flip::before {
+  background:
+    radial-gradient(55rem 28rem at 100% 0%, rgba(147, 197, 253, 0.38), transparent 60%),
+    radial-gradient(50rem 28rem at 0% 100%, rgba(94, 234, 212, 0.3), transparent 60%);
+}
+
+/* Coloured words inside a headline (light backgrounds) */
+.os-accent-text {
+  background: linear-gradient(90deg, var(--os-brand-dark), var(--os-brand));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft mint → sky underline behind an accent word (decorative, doesn't affect text contrast) */
+.os-highlight {
+  background: linear-gradient(90deg, var(--os-mint), var(--os-sky-blue)) no-repeat 0 100% / 100% 0.12em;
+}
+
+/* Small labels above mission / vision text (Story section) */
+.os-about .os-pillar-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #0f6799; /* darker than brand-dark so it stays readable on the pale-blue background */
+}
+.os-pillar-label::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--os-mint), var(--os-brand));
+}
+
+/* The card that holds the waves */
+.os-wave-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--os-light-gray);
+  border-radius: 1.5rem;
+  padding: 1.5rem 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, var(--os-pale-blue) 55%, var(--os-pale-mint) 100%);
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.05),
+    0 24px 50px -24px rgba(20, 121, 176, 0.3);
+}
+@media (min-width: 768px) {
+  .os-wave-card {
+    padding: 2.5rem 2.5rem 2rem;
+  }
+}
+.os-wave-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.os-wave-stage {
+  position: relative;
+}
+.os-wave-card .os-steps {
+  position: relative;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.45);
+}
+.os-step-n {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--os-brand-dark);
+}
+
+/* "In sync" tag at the point where the lines lock together */
+.os-sync-pill {
+  position: absolute;
+  top: 0;
+  left: 63%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--os-light-gray);
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--os-ink);
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.08);
+  opacity: 0;
+  transition: opacity 0.5s ease 1.5s;
+}
+.os-sync-pill::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--os-mint);
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.35);
+}
+.is-play .os-sync-pill {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-sync-pill {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Compact orbit graphic beside the hero text (TechOrbit.jsx)
+   ------------------------------------------------------------------ */
+.os-orbit-card {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+}
+.os-orbit {
+  width: 100%;
+  height: 100%;
+  animation: os-orbit-spin 40s linear infinite;
+}
+.os-orbit-ring {
+  fill: none;
+  stroke: var(--os-slate);
+  stroke-opacity: 0.3;
+  stroke-dasharray: 3 7;
+}
+.os-orbit-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--os-light-gray);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--os-charcoal);
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(17, 24, 39, 0.06);
+}
+@keyframes os-orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-orbit {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Dark process section: step titles stay mint; the main heading uses
+   the full mint → sky → blue wave gradient (all three read well on charcoal).
+   ------------------------------------------------------------------ */
+.os-bg-charcoal h3 {
+  color: var(--os-mint);
+}
+.os-bg-charcoal .os-accent-text {
+  background: linear-gradient(90deg, var(--os-mint), var(--os-sky-blue), var(--os-brand-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
