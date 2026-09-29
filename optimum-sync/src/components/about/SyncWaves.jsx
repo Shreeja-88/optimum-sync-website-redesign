@@ -65,53 +65,108 @@ function TypedText({ text, delay, className }) {
 }
 
 // Before the wave is in view, keep the space reserved (invisible) so nothing jumps.
-function Caption({ play, text, delay, className }) {
-  if (!play) {
-    return (
-      <p className={className}>
-        <span className="sr-only">{text}</span>
-        <span aria-hidden="true" style={{ visibility: "hidden" }}>
-          {text}
-        </span>
-      </p>
-    );
-  }
-  return <TypedText text={text} delay={delay} className={className} />;
+function Caption({ play, text, delay, n, align = "left", className }) {
+  const alignClass = align === "center" ? "text-center" : align === "right" ? "text-right" : "";
+  return (
+    <div className={alignClass}>
+      <span className="os-step-n">{n}</span>
+      {play ? (
+        <TypedText text={text} delay={delay} className={className} />
+      ) : (
+        <p className={className}>
+          <span className="sr-only">{text}</span>
+          <span aria-hidden="true" style={{ visibility: "hidden" }}>
+            {text}
+          </span>
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default function SyncWaves({ steps }) {
   // replay: true = the waves and captions play again every time they scroll into view
   const { ref, inView } = useInView({ threshold: 0.4, replay: true });
   const [first, second, third] = steps;
-  const caption = "text-base font-semibold leading-snug md:text-2xl";
+  const caption = "text-base font-semibold leading-snug md:text-xl";
 
   return (
-    <div ref={ref}>
-      <svg
-        className={`os-waves${inView ? " os-waves--play" : ""} block h-44 w-full md:h-64`}
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="none"
-        aria-hidden="true"
-        focusable="false"
-      >
-        {lines.map((l, i) => (
-          <path
-            key={i}
-            d={l.d}
-            fill="none"
-            stroke={l.stroke}
-            strokeWidth={l.width}
-            strokeLinecap="round"
-            strokeLinejoin="round"
+    <div ref={ref} className={`os-wave-card${inView ? " is-play" : ""}`}>
+      <div className="os-wave-stage">
+        <span className="os-sync-pill">In sync</span>
+        <svg
+          className={`os-waves${inView ? " os-waves--play" : ""} block h-40 w-full md:h-56`}
+          viewBox={`0 0 ${W} ${H}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <filter id="os-wave-blur-back" x="-30%" y="-80%" width="160%" height="260%">
+              <feGaussianBlur stdDeviation="2.2" />
+            </filter>
+            <filter id="os-wave-shadow-front" x="-20%" y="-80%" width="140%" height="260%">
+              <feDropShadow dx="0" dy="5" stdDeviation="4" floodColor="#0f172a" floodOpacity="0.28" />
+            </filter>
+          </defs>
+          <line
+            x1="0"
+            y1={H / 2}
+            x2={W}
+            y2={H / 2}
+            stroke="var(--os-slate)"
+            strokeOpacity="0.35"
+            strokeDasharray="4 8"
             vectorEffect="non-scaling-stroke"
           />
-        ))}
-      </svg>
+          <line
+            x1={W * 0.63}
+            y1="34"
+            x2={W * 0.63}
+            y2={H}
+            stroke="var(--os-brand)"
+            strokeOpacity="0.4"
+            strokeDasharray="3 6"
+            vectorEffect="non-scaling-stroke"
+          />
+          {lines.map((l, i) => {
+            const isFront = i === lines.length - 1;
+            return (
+              <path
+                key={i}
+                d={l.d}
+                fill="none"
+                stroke={l.stroke}
+                strokeWidth={l.width}
+                strokeOpacity={isFront ? 1 : 0.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
+                filter={isFront ? "url(#os-wave-shadow-front)" : "url(#os-wave-blur-back)"}
+              />
+            );
+          })}
+        </svg>
+      </div>
 
-      <div className="mt-5 grid grid-cols-3 gap-3 md:gap-8">
-        <Caption play={inView} text={first} delay={300} className={caption} />
-        <Caption play={inView} text={second} delay={900} className={`${caption} os-text-ink text-center`} />
-        <Caption play={inView} text={third} delay={1450} className={`${caption} os-text-brand text-right`} />
+      <div className="os-steps grid grid-cols-3 gap-3 md:gap-8">
+        <Caption play={inView} n="01" text={first} delay={300} className={caption} />
+        <Caption
+          play={inView}
+          n="02"
+          text={second}
+          delay={900}
+          align="center"
+          className={`${caption} os-text-ink`}
+        />
+        <Caption
+          play={inView}
+          n="03"
+          text={third}
+          delay={1450}
+          align="right"
+          className={`${caption} os-text-brand`}
+        />
       </div>
     </div>
   );

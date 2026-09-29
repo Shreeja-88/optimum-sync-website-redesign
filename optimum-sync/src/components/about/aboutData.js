@@ -1,14 +1,18 @@
 export const hero = {
-  headline: "Technology that helps your business grow.",
-  intro:
-    "Optimum Sync is an IT services company. We design, build and run custom software, mobile apps and cloud platforms for teams that want to move fast without cutting corners.",
+  headline: "Technology that solves problems.",
+  body: [
+    "Optimum Sync is a technology company focused on helping businesses build, improve, and scale their digital operations.",
+    "We work across web development, mobile applications, custom software, e-commerce, AI, and cloud technologies to create solutions tailored to each client's requirements.",
+    "We don't believe in one-size-fits-all software. We build technology around the problem you're trying to solve.",
+  ],
   primaryCta: { label: "Let's talk", to: "/contact" },
   secondaryCta: { label: "Why Optimum Sync", href: "#why-us" },
   waveSteps: ["You bring the idea", "We shape it", "It launches in sync"],
 };
 
 export const story = {
-  title: "Your idea, built end to end by one team.",
+  // *asterisks* mark the words AccentText should render in the blue gradient + underline
+  title: "Your idea, built *end to end* by one team.",
   pillars: [
     {
       label: "Our mission",
@@ -25,55 +29,48 @@ export const story = {
 // (its card is included below, commented out: remove the // marks to bring it back).
 // `image` is a path under /public. `imageAlt` describes it for screen readers.
 export const whyUs = {
-  title: "Why choose us.",
-  intro: "Clean, production-ready code, delivered at maximum velocity.",
+  title: "More than a *development team.*",
+  intro:
+    "We don't just build what is written in a requirement document. We work with you to understand the problem, identify the right solution, and build technology that can evolve with your business.",
   items: [
     {
-      title: "Expert Team",
-      text: "Experienced developers and designers working as one team, from first sketch to launch.",
-      image: "/why-us/expert-team.jpeg",
-      imageAlt: "A team collaborating around a table with laptops",
+      title: "Business First",
+      text: "We start with your goals and challenges, not technology for technology's sake.",
+      image: "/why-us/business.avif",
+      imageAlt: "A business team in discussion",
     },
     {
-      title: "Global Reach",
-      text: "We connect businesses around the world through dependable digital solutions.",
-      image: "/why-us/global-reach.jpeg",
-      imageAlt: "A globe showing connected regions",
+      title: "Built to Scale",
+      text: "Solutions are designed with future growth, integrations, and changing requirements in mind.",
+      image: "/why-us/scale.jpg",
+      imageAlt: "Growth and scalability concept",
     },
     {
-      title: "Rapid Delivery",
-      text: "Short build cycles and regular previews keep your launch on schedule and quality high.",
+      title: "One Technology Partner",
+      text: "Strategy, design, development, deployment, and ongoing support under one roof.",
       image: "/why-us/rapid-delivery.jpeg",
       imageAlt: "A developer writing code on a laptop",
     },
     {
-      title: "Secure & Scalable",
-      text: "Security built in from day one, on an architecture that grows with your business.",
-      image: "/why-us/secure-scalable.jpeg",
-      imageAlt: "Hands typing on a laptop with padlock icons overlaid",
+      title: "Transparent Collaboration",
+      text: "Clear communication, defined milestones, and visibility throughout development.",
+      image: "/why-us/collaboration.png",
+      imageAlt: "Team members collaborating together",
+      imagePosition: "top",
     },
-    // {
-    //   title: "Ongoing Support",
-    //   text: "We stay with you after launch, keeping your product secure, fast and improving.",
-    //   image: "/why-us/ongoing-support.jpeg",
-    // },
   ],
 };
 
 export const workflow = {
-  title: "How we run projects",
-  intro: "Four stages, each with something you can open, click and review.",
+  title: "From idea to launch.",
+  intro: "A structured process keeps projects predictable, transparent, and focused on business outcomes.",
   steps: [
-    {
-      title: "Scope",
-      text: "We agree on outcomes, budget and milestones before writing any code.",
-    },
-    {
-      title: "Design",
-      text: "UI/UX and design tokens, reviewed with you in clickable prototypes.",
-    },
-    { title: "Build", text: "Short cycles. Every merge lands on a preview link you can open." },
-    { title: "Launch & support", text: "Cloud hosting, monitoring and support after go-live." },
+    { title: "Discover", text: "Understand business, users, objectives and requirements." },
+    { title: "Plan", text: "Define scope, architecture, technology stack and roadmap." },
+    { title: "Design", text: "Create intuitive UX/UI before development." },
+    { title: "Build", text: "Turn approved designs into a functional, scalable product." },
+    { title: "Test", text: "Test functionality, performance, responsiveness, security and UX." },
+    { title: "Launch & Grow", text: "Deploy and continue support, maintenance and improvements." },
   ],
 };
 

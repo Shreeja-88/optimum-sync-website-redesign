@@ -1,13 +1,17 @@
 import Forming from "./Forming";
+import AccentText from "./AccentText";
 import { whyUs } from "./aboutData";
 
 // id="why-us" is linked from the footer: keep it.
 export default function WhyUs() {
   return (
-    <section id="why-us" className="os-bg-off-white scroll-mt-24">
+    <section id="why-us" className="os-hero os-hero--flip os-bg-off-white scroll-mt-24">
       <div className="mx-auto w-full max-w-6xl px-6 py-20 md:px-10 md:py-28">
+        <p className="os-eyebrow">Why Optimum Sync</p>
         <h2 className="max-w-3xl text-3xl font-bold leading-tight tracking-[-0.02em] [text-wrap:balance] md:text-5xl">
-          <Forming>{whyUs.title}</Forming>
+          <Forming>
+            <AccentText>{whyUs.title}</AccentText>
+          </Forming>
         </h2>
         <p className="mt-5 max-w-xl text-lg leading-relaxed">
           <Forming>{whyUs.intro}</Forming>
@@ -19,7 +23,12 @@ export default function WhyUs() {
             <li key={item.title} className="os-why-card">
               <div className={`os-why-media${item.image ? "" : " os-why-media--empty"}`}>
                 {item.image ? (
-                  <img src={item.image} alt={item.imageAlt ?? ""} loading="lazy" />
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt ?? ""}
+                    loading="lazy"
+                    style={{ objectPosition: item.imagePosition ?? "center" }}
+                  />
                 ) : (
                   <span aria-hidden="true">Image goes here (see aboutData.js)</span>
                 )}
