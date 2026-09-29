@@ -1,12 +1,13 @@
 /* =========================================================
-   OPTIMUM SYNC — PAGE LOADER
+   OPTIMUM SYNC
+   DARK PREMIUM PAGE LOADER
    ========================================================= */
 
 .page-loader {
   position: fixed;
   inset: 0;
 
-  z-index: 9999;
+  z-index: 99999;
 
   display: flex;
   align-items: center;
@@ -16,663 +17,373 @@
 
   background:
     radial-gradient(
-      circle at 20% 30%,
-      rgba(32, 159, 227, 0.16),
+      circle at 50% 48%,
+      rgba(32, 159, 227, 0.09),
       transparent 30%
     ),
+    #071018;
+
+  color: #ffffff;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   AMBIENT BACKGROUND LIGHT
+   ========================================================= */
+
+.page-loader__ambient {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(120px);
+
+  pointer-events: none;
+
+  opacity: 0.45;
+}
+
+.page-loader__ambient--blue {
+  width: 500px;
+  height: 500px;
+
+  top: -320px;
+  left: 5%;
+
+  background: rgba(32, 159, 227, 0.1);
+}
+
+.page-loader__ambient--mint {
+  width: 450px;
+  height: 450px;
+
+  right: -260px;
+  bottom: -260px;
+
+  background: rgba(94, 234, 212, 0.08);
+}
+
+/* =========================================================
+   CENTER GLOW
+   ========================================================= */
+
+.page-loader__center-glow {
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
     radial-gradient(
-      circle at 80% 70%,
-      rgba(94, 234, 212, 0.10),
-      transparent 30%
-    ),
-    #07131b;
+      circle,
+      rgba(32, 159, 227, 0.16),
+      rgba(94, 234, 212, 0.045) 42%,
+      transparent 72%
+    );
 
-  color: white;
-
-  opacity: 1;
-  visibility: visible;
-
-  animation:
-    loaderAppear
-    700ms
-    ease-out
-    both;
-}
-
-
-/* =========================================================
-   AMBIENT ORBS
-   ========================================================= */
-
-.loader-orb {
-  position: absolute;
-
-  border-radius: 9999px;
+  filter: blur(22px);
 
   pointer-events: none;
-
-  filter: blur(80px);
 }
-
-.loader-orb--blue {
-  width: 420px;
-  height: 420px;
-
-  top: -160px;
-  left: -120px;
-
-  background:
-    rgba(32, 159, 227, 0.24);
-
-  animation:
-    loaderBlueFloat
-    8s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-.loader-orb--mint {
-  width: 360px;
-  height: 360px;
-
-  right: -120px;
-  bottom: -120px;
-
-  background:
-    rgba(94, 234, 212, 0.14);
-
-  animation:
-    loaderMintFloat
-    10s
-    ease-in-out
-    infinite
-    alternate;
-}
-
 
 /* =========================================================
-   GRID
+   DIGITAL GRID
    ========================================================= */
 
-.loader-grid {
+.page-loader__grid {
   position: absolute;
-  inset: -20%;
+  inset: 0;
 
-  pointer-events: none;
-
-  opacity: 0.16;
+  opacity: 0.25;
 
   background-image:
     linear-gradient(
-      rgba(148, 163, 184, 0.07) 1px,
+      rgba(255, 255, 255, 0.035) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(148, 163, 184, 0.07) 1px,
+      rgba(255, 255, 255, 0.035) 1px,
       transparent 1px
     );
 
-  background-size: 80px 80px;
+  background-size: 48px 48px;
 
-  transform: perspective(600px) rotateX(60deg);
-
-  transform-origin: center bottom;
-
-  animation:
-    loaderGridMove
-    18s
-    linear
-    infinite;
-}
-
-
-/* =========================================================
-   WAVES
-   ========================================================= */
-
-.loader-waves {
-  position: absolute;
-  inset: auto 0 0;
-
-  width: 100%;
-  height: 50%;
+  mask-image:
+    radial-gradient(
+      ellipse at center,
+      black 0%,
+      rgba(0, 0, 0, 0.5) 45%,
+      transparent 75%
+    );
 
   pointer-events: none;
-
-  opacity: 0.6;
 }
-
-.loader-wave {
-  fill: none;
-
-  stroke-width: 1;
-
-  vector-effect: non-scaling-stroke;
-}
-
-.loader-wave--one {
-  stroke: rgba(32, 159, 227, 0.25);
-
-  animation:
-    loaderWaveOne
-    9s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-.loader-wave--two {
-  stroke: rgba(94, 234, 212, 0.15);
-
-  animation:
-    loaderWaveTwo
-    12s
-    ease-in-out
-    infinite
-    alternate-reverse;
-}
-
 
 /* =========================================================
-   CONTENT
+   MAIN CONTENT
    ========================================================= */
 
-.loader-content {
+.page-loader__content {
   position: relative;
-  z-index: 2;
 
-  width: min(90%, 620px);
+  z-index: 5;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  text-align: center;
 }
-
 
 /* =========================================================
-   LOGO SYSTEM
+   ORIGINAL LOGO
    ========================================================= */
 
-.loader-logo-system {
+.page-loader__logo {
   position: relative;
 
-  width: 180px;
-  height: 180px;
+  width: 150px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-bottom: 28px;
 }
 
-.loader-logo-wrap {
-  position: relative;
-  z-index: 5;
+.page-loader__logo img {
+  display: block;
 
-  width: 92px;
-  height: 92px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background:
-    rgba(255, 255, 255, 0.045);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.14);
-
-  backdrop-filter: blur(18px);
-
-  box-shadow:
-    0 0 50px rgba(32, 159, 227, 0.16);
-
-  animation:
-    loaderLogoFloat
-    4s
-    ease-in-out
-    infinite;
-}
-
-.loader-logo {
-  width: 62px;
+  width: 100%;
   height: auto;
-}
 
+  object-fit: contain;
+
+  /*
+   * The image itself is the logo.
+   * No box, no artificial icon,
+   * no background.
+   */
+}
 
 /* =========================================================
-   RINGS
+   BRAND NAME
    ========================================================= */
 
-.loader-ring {
-  position: absolute;
-
-  border-radius: 50%;
-
-  border: 1px solid rgba(255, 255, 255, 0.10);
-}
-
-.loader-ring--outer {
-  inset: 0;
-
-  border-top-color: rgba(32, 159, 227, 0.8);
-
-  animation:
-    loaderRingRotate
-    8s
-    linear
-    infinite;
-}
-
-.loader-ring--middle {
-  inset: 17px;
-
-  border-right-color: rgba(94, 234, 212, 0.65);
-
-  animation:
-    loaderRingRotateReverse
-    6s
-    linear
-    infinite;
-}
-
-.loader-ring--inner {
-  inset: 34px;
-
-  border-bottom-color: rgba(56, 189, 248, 0.55);
-
-  animation:
-    loaderRingRotate
-    4s
-    linear
-    infinite;
-}
-
-
-/* =========================================================
-   LOGO GLOW
-   ========================================================= */
-
-.loader-glow {
-  position: absolute;
-
-  width: 90px;
-  height: 90px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(32, 159, 227, 0.22);
-
-  filter: blur(30px);
-
-  animation:
-    loaderGlowPulse
-    3s
-    ease-in-out
-    infinite;
-}
-
-
-/* =========================================================
-   ORBIT DOTS
-   ========================================================= */
-
-.loader-orbit-dot {
-  position: absolute;
-
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: #38bdf8;
-
-  box-shadow:
-    0 0 18px rgba(56, 189, 248, 0.9);
-}
-
-.loader-orbit-dot--one {
-  top: 8px;
-  left: 50%;
-
-  animation:
-    loaderOrbitOne
-    5s
-    linear
-    infinite;
-}
-
-.loader-orbit-dot--two {
-  right: 15px;
-  bottom: 28px;
-
-  background: #5eead4;
-
-  box-shadow:
-    0 0 18px rgba(94, 234, 212, 0.8);
-
-  animation:
-    loaderOrbitTwo
-    7s
-    linear
-    infinite;
-}
-
-
-/* =========================================================
-   BRAND
-   ========================================================= */
-
-.loader-brand {
+.page-loader__brand {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 7px;
 
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-top: 26px;
 
-  font-weight: 800;
+  font-size: 13px;
+  font-weight: 700;
 
-  letter-spacing: -0.04em;
+  letter-spacing: 0.24em;
 }
 
-.loader-brand-word--one {
-  color: white;
+.page-loader__brand span:first-child {
+  color: #f1f5f9;
 }
 
-.loader-brand-word--two {
-  background:
-    linear-gradient(
-      90deg,
-      #38bdf8,
-      #5eead4
-    );
-
-  background-clip: text;
-  -webkit-background-clip: text;
-
-  color: transparent;
+.page-loader__brand span:last-child {
+  color: #39b9d0;
 }
-
 
 /* =========================================================
    TAGLINE
    ========================================================= */
 
-.loader-tagline {
-  margin-top: 10px;
+.page-loader__tagline {
+  margin: 12px 0 0;
 
-  font-size: 0.8rem;
+  color: #708397;
 
-  letter-spacing: 0.14em;
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 0.18em;
 
   text-transform: uppercase;
-
-  color: rgba(148, 163, 184, 0.8);
 }
-
 
 /* =========================================================
-   PROGRESS
+   ANIMATED LINE
    ========================================================= */
 
-.loader-progress-area {
-  width: min(100%, 460px);
-
-  margin-top: 45px;
-}
-
-.loader-progress-top {
-  display: flex;
-  justify-content: space-between;
-
-  margin-bottom: 9px;
-
-  font-size: 0.62rem;
-
-  letter-spacing: 0.14em;
-
-  color: rgba(148, 163, 184, 0.8);
-}
-
-.loader-progress {
+.page-loader__line {
   position: relative;
 
-  width: 100%;
-  height: 3px;
+  width: 230px;
+  height: 1px;
 
-  overflow: hidden;
+  margin-top: 32px;
 
-  border-radius: 999px;
-
-  background:
-    rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.loader-progress-fill {
+.page-loader__line span {
+  position: absolute;
+
+  inset: 0;
+
   display: block;
-
-  height: 100%;
-
-  border-radius: inherit;
 
   background:
     linear-gradient(
       90deg,
-      #1479b0,
       #209fe3,
-      #38bdf8,
+      #39bfd0,
       #5eead4
     );
 
-  box-shadow:
-    0 0 14px
-    rgba(32, 159, 227, 0.65);
-
-  transition:
-    width 80ms linear;
+  transform-origin: center center;
 }
 
+.page-loader__line-dot {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 8px rgba(32, 159, 227, 0.9),
+    0 0 18px rgba(94, 234, 212, 0.65);
+}
 
 /* =========================================================
-   CORNER LABELS
+   TOP STATUS
    ========================================================= */
 
-.loader-corner {
+.page-loader__status {
+  position: absolute;
+
+  top: 30px;
+  left: 32px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #526678;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+}
+
+.page-loader__status span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #10b981;
+
+  box-shadow:
+    0 0 9px rgba(16, 185, 129, 0.65);
+}
+
+.page-loader__status b {
+  font-weight: 700;
+}
+
+/* =========================================================
+   CORNERS
+   ========================================================= */
+
+.page-loader__corner {
   position: absolute;
 
   bottom: 28px;
 
-  font-size: 0.58rem;
+  color: #3f5264;
 
-  letter-spacing: 0.2em;
+  font-size: 7px;
+  font-weight: 700;
 
-  color: rgba(148, 163, 184, 0.55);
+  letter-spacing: 0.16em;
 }
 
-.loader-corner--left {
-  left: 30px;
+.page-loader__corner--left {
+  left: 32px;
 }
 
-.loader-corner--right {
-  right: 30px;
+.page-loader__corner--right {
+  right: 32px;
 }
-
 
 /* =========================================================
-   EXIT
+   MOBILE
    ========================================================= */
 
-.page-loader--exit {
-  animation:
-    loaderExit
-    500ms
-    cubic-bezier(0.76, 0, 0.24, 1)
-    forwards;
+@media (max-width: 560px) {
+  .page-loader__logo {
+    width: 125px;
+  }
+
+  .page-loader__brand {
+    margin-top: 22px;
+
+    font-size: 10px;
+
+    letter-spacing: 0.2em;
+  }
+
+  .page-loader__tagline {
+    font-size: 7px;
+  }
+
+  .page-loader__line {
+    width: 190px;
+
+    margin-top: 27px;
+  }
+
+  .page-loader__status {
+    top: 22px;
+    left: 20px;
+
+    font-size: 6px;
+  }
+
+  .page-loader__corner {
+    bottom: 20px;
+
+    font-size: 6px;
+  }
+
+  .page-loader__corner--left {
+    left: 20px;
+  }
+
+  .page-loader__corner--right {
+    right: 20px;
+  }
 }
-
-.loader-reveal {
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  background: #07131b;
-
-  transform: translateY(100%);
-
-  animation:
-    loaderReveal
-    900ms
-    cubic-bezier(0.76, 0, 0.24, 1)
-    forwards;
-}
-
 
 /* =========================================================
-   KEYFRAMES
+   REDUCED MOTION
    ========================================================= */
 
-@keyframes loaderAppear {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes loaderExit {
-  from {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
-@keyframes loaderReveal {
-  0% {
-    transform: translateY(100%);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes loaderBlueFloat {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-
-  to {
-    transform: translate(80px, 50px) scale(1.15);
-  }
-}
-
-@keyframes loaderMintFloat {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-
-  to {
-    transform: translate(-70px, -50px) scale(1.12);
-  }
-}
-
-@keyframes loaderGridMove {
-  from {
-    transform:
-      perspective(600px)
-      rotateX(60deg)
-      translateY(0);
-  }
-
-  to {
-    transform:
-      perspective(600px)
-      rotateX(60deg)
-      translateY(80px);
-  }
-}
-
-@keyframes loaderWaveOne {
-  from {
-    transform: translateX(-25px);
-  }
-
-  to {
-    transform: translateX(25px);
-  }
-}
-
-@keyframes loaderWaveTwo {
-  from {
-    transform: translateX(30px);
-  }
-
-  to {
-    transform: translateX(-30px);
-  }
-}
-
-@keyframes loaderLogoFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-@keyframes loaderRingRotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes loaderRingRotateReverse {
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes loaderGlowPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(0.9);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
-
-@keyframes loaderOrbitOne {
-  to {
-    transform: rotate(360deg) translateX(78px) rotate(-360deg);
-  }
-}
-
-@keyframes loaderOrbitTwo {
-  to {
-    transform: rotate(-360deg) translateX(72px) rotate(360deg);
+@media (prefers-reduced-motion: reduce) {
+  .page-loader__center-glow {
+    opacity: 0.7;
   }
 }

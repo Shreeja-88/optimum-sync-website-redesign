@@ -1,253 +1,313 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+
+import "../../styles/loader.css";
 
 export default function PageLoader() {
-  const [progress, setProgress] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
+  const loaderRef = useRef(null);
+  const logoRef = useRef(null);
+  const brandRef = useRef(null);
+  const taglineRef = useRef(null);
+  const lineRef = useRef(null);
+  const glowRef = useRef(null);
 
   useEffect(() => {
+    const loader = loaderRef.current;
+
+    if (!loader) return;
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Reduced motion: finish quickly
-    if (reducedMotion) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setProgress(100);
+    const ctx = gsap.context(() => {
+      /* =========================================
+         REDUCED MOTION
+      ========================================= */
 
-      const timer = window.setTimeout(() => {
-        setIsExiting(true);
-      }, 400);
+      if (reducedMotion) {
+        gsap.set(
+          [
+            logoRef.current,
+            brandRef.current,
+            taglineRef.current,
+            lineRef.current,
+          ],
+          {
+            opacity: 1,
+            clearProps: "transform",
+          }
+        );
 
-      return () => window.clearTimeout(timer);
-    }
+        gsap.set(lineRef.current, {
+          scaleX: 1,
+        });
 
-    let frame;
-    let startTime = null;
+        gsap.delayedCall(0.4, exitLoader);
 
-    // ============================================
-    // TOTAL LOADER TIME: ~2 SECONDS
-    // ============================================
-    const totalDuration = 2000;
-
-    const updateProgress = (timestamp) => {
-      if (!startTime) {
-        startTime = timestamp;
+        return;
       }
 
-      const elapsed = timestamp - startTime;
-      const time = Math.min(elapsed / totalDuration, 1);
+      /* =========================================
+         INITIAL STATES
+      ========================================= */
 
-      let nextProgress;
+      gsap.set(logoRef.current, {
+        opacity: 0,
+        scale: 0.85,
+        y: 20,
+      });
 
-      /*
-       * Staged progress
-       *
-       * 0%  → 15%  : Initializing
-       * 15% → 55%  : Connecting systems
-       * 55% → 82%  : Building experience
-       * 82% → 95%  : Finalizing
-       * 95% → 100% : Welcome
-       */
+      gsap.set(brandRef.current, {
+        opacity: 0,
+        y: 15,
+      });
 
-      if (time < 0.15) {
-        // 0 → 15
-        const t = time / 0.15;
-        nextProgress = 15 * t;
-      } else if (time < 0.46) {
-        // 15 → 55
-        const t = (time - 0.15) / 0.31;
-        nextProgress = 15 + 40 * t;
-      } else if (time < 0.71) {
-        // 55 → 82
-        const t = (time - 0.46) / 0.25;
-        nextProgress = 55 + 27 * t;
-      } else if (time < 0.89) {
-        // 82 → 95
-        const t = (time - 0.71) / 0.18;
-        nextProgress = 82 + 13 * t;
-      } else {
-        // 95 → 100
-        const t = (time - 0.89) / 0.11;
-        nextProgress = 95 + 5 * t;
+      gsap.set(taglineRef.current, {
+        opacity: 0,
+        y: 10,
+      });
+
+      gsap.set(lineRef.current, {
+        scaleX: 0,
+        transformOrigin: "center center",
+      });
+
+      gsap.set(glowRef.current, {
+        opacity: 0,
+        scale: 0.6,
+      });
+
+      /* =========================================
+         INTRO
+      ========================================= */
+
+      const intro = gsap.timeline();
+
+      intro
+        .to(glowRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        })
+        .to(
+          logoRef.current,
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.7"
+        )
+        .to(
+          brandRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "power3.out",
+          },
+          "-=0.35"
+        )
+        .to(
+          taglineRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power3.out",
+          },
+          "-=0.25"
+        )
+        .to(
+          lineRef.current,
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.inOut",
+          },
+          "-=0.1"
+        )
+        .to({}, {
+          duration: 0.35,
+        })
+        .call(exitLoader);
+
+      /* =========================================
+         SUBTLE LOGO FLOAT
+      ========================================= */
+
+      gsap.to(logoRef.current, {
+        y: -4,
+        duration: 2.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      /* =========================================
+         GLOW PULSE
+      ========================================= */
+
+      gsap.to(glowRef.current, {
+        opacity: 0.7,
+        scale: 1.08,
+        duration: 2.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      /* =========================================
+         EXIT
+      ========================================= */
+
+      function exitLoader() {
+        const exit = gsap.timeline({
+          onComplete: () => {
+            if (loader) {
+              loader.style.display = "none";
+            }
+          },
+        });
+
+        exit
+          .to(lineRef.current, {
+            scaleX: 0,
+            duration: 0.35,
+            ease: "power2.inOut",
+          })
+          .to(
+            [taglineRef.current, brandRef.current],
+            {
+              opacity: 0,
+              y: -10,
+              duration: 0.25,
+              stagger: 0.03,
+              ease: "power2.in",
+            },
+            "-=0.15"
+          )
+          .to(
+            logoRef.current,
+            {
+              opacity: 0,
+              scale: 0.94,
+              duration: 0.3,
+              ease: "power2.in",
+            },
+            "-=0.2"
+          )
+          .to(
+            loader,
+            {
+              yPercent: -100,
+              duration: 0.75,
+              ease: "power4.inOut",
+            },
+            "-=0.05"
+          );
       }
+    }, loaderRef);
 
-      setProgress(Math.floor(nextProgress));
-
-      if (time < 1) {
-        frame = requestAnimationFrame(updateProgress);
-      } else {
-        setProgress(100);
-
-        /*
-         * Small pause at 100%.
-         * This is included in the overall experience,
-         * so we don't add another 1.2 seconds here.
-         */
-        window.setTimeout(() => {
-          setIsExiting(true);
-        }, 250);
-      }
-    };
-
-    frame = requestAnimationFrame(updateProgress);
-
-    return () => {
-      cancelAnimationFrame(frame);
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <div
-      className={`page-loader ${
-        isExiting ? "page-loader--exit" : ""
-      }`}
+      ref={loaderRef}
+      className="page-loader"
       aria-label="Loading Optimum Sync"
     >
-      {/* =====================================================
-          AMBIENT BACKGROUND
-          ===================================================== */}
+      {/* =========================================
+          AMBIENT LIGHT
+      ========================================= */}
 
-      <div className="loader-orb loader-orb--blue" />
-      <div className="loader-orb loader-orb--mint" />
-
-      {/* Moving grid */}
       <div
-        className="loader-grid"
+        ref={glowRef}
+        className="page-loader__center-glow"
+      />
+
+      <div className="page-loader__ambient page-loader__ambient--blue" />
+      <div className="page-loader__ambient page-loader__ambient--mint" />
+
+      {/* =========================================
+          DIGITAL GRID
+      ========================================= */}
+
+      <div
+        className="page-loader__grid"
         aria-hidden="true"
       />
 
-      {/* =====================================================
-          BACKGROUND WAVES
-          ===================================================== */}
+      {/* =========================================
+          MAIN
+      ========================================= */}
 
-      <svg
-        className="loader-waves"
-        viewBox="0 0 1440 500"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          className="loader-wave loader-wave--one"
-          d="M0 300 C240 180 420 420 720 290 C1000 170 1190 360 1440 220"
-        />
+      <div className="page-loader__content">
 
-        <path
-          className="loader-wave loader-wave--two"
-          d="M0 360 C260 250 470 470 760 330 C1050 190 1190 420 1440 300"
-        />
-      </svg>
+        {/* Original Optimum Sync Logo */}
 
-      {/* =====================================================
-          MAIN CONTENT
-          ===================================================== */}
-
-      <div className="loader-content">
-
-        {/* Logo system */}
-        <div className="loader-logo-system">
-
-          {/* Rotating rings */}
-          <div className="loader-ring loader-ring--outer" />
-          <div className="loader-ring loader-ring--middle" />
-          <div className="loader-ring loader-ring--inner" />
-
-          {/* Glow */}
-          <div className="loader-glow" />
-
-          {/* Logo */}
-          <div className="loader-logo-wrap">
-            <img
-              src="/images/logo_white.webp"
-              alt="Optimum Sync"
-              className="loader-logo"
-            />
-          </div>
-
-          {/* Orbiting lights */}
-          <span className="loader-orbit-dot loader-orbit-dot--one" />
-          <span className="loader-orbit-dot loader-orbit-dot--two" />
+        <div
+          ref={logoRef}
+          className="page-loader__logo"
+        >
+          <img
+            src="/images/logo_white.webp"
+            alt="Optimum Sync"
+          />
         </div>
 
-        {/* =================================================
-            BRAND
-            ================================================= */}
+        {/* Brand */}
 
-        <div className="loader-brand">
-          <span className="loader-brand-word loader-brand-word--one">
-            OPTIMUM
-          </span>
-
-          <span className="loader-brand-word loader-brand-word--two">
-            SYNC
-          </span>
+        <div
+          ref={brandRef}
+          className="page-loader__brand"
+        >
+          <span>OPTIMUM</span>
+          <span>SYNC</span>
         </div>
 
-        <p className="loader-tagline">
+        {/* Tagline */}
+
+        <p
+          ref={taglineRef}
+          className="page-loader__tagline"
+        >
           Digital experiences. Built to move.
         </p>
 
-        {/* =================================================
-            PROGRESS
-            ================================================= */}
+        {/* Animated line */}
 
-        <div className="loader-progress-area">
+        <div className="page-loader__line">
+          <span ref={lineRef} />
 
-          <div className="loader-progress-top">
-            <span>
-              {progress < 20
-                ? "INITIALIZING EXPERIENCE"
-                : progress < 55
-                ? "CONNECTING DIGITAL SYSTEMS"
-                : progress < 82
-                ? "BUILDING EXPERIENCE"
-                : progress < 100
-                ? "FINALIZING EXPERIENCE"
-                : "WELCOME TO OPTIMUM SYNC"}
-            </span>
-
-            <span>
-              {progress}%
-            </span>
-          </div>
-
-          <div
-            className="loader-progress"
-            role="progressbar"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={progress}
-            aria-label="Loading progress"
-          >
-            <span
-              className="loader-progress-fill"
-              style={{
-                width: `${progress}%`,
-              }}
-            />
-          </div>
-
+          <i className="page-loader__line-dot" />
         </div>
+
       </div>
 
-      {/* =====================================================
+      {/* =========================================
           CORNER INFORMATION
-          ===================================================== */}
+      ========================================= */}
 
-      <div className="loader-corner loader-corner--left">
-        <span>OS / 01</span>
+      <div className="page-loader__corner page-loader__corner--left">
+        OS / 01
       </div>
 
-      <div className="loader-corner loader-corner--right">
-        <span>
-          BUILDING DIGITAL FUTURES
-        </span>
+      <div className="page-loader__corner page-loader__corner--right">
+        DIGITAL EXPERIENCES
       </div>
 
-      {/* =====================================================
-          EXIT REVEAL
-          ===================================================== */}
+      {/* Top small indicator */}
 
-      <div className="loader-reveal" />
+      <div className="page-loader__status">
+        <span />
+        <b>OPTIMUM SYNC</b>
+      </div>
     </div>
   );
 }
