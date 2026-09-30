@@ -1,13 +1,11 @@
-
 import usePageTitle from "../hooks/usePageTitle";
 import PageHeader from "../components/ui/PageHeader";
 import Section from "../components/ui/Section";
 import ContactForm from "../components/Contact/ContactForm";
 import FinalCTA from "../components/Contact/FinalCTA";
-import FAQ from "../components/Contact/FAQ";
 import StatsCounter from "../components/Contact/StatsCounter";
 
-// P5 builds this page. Keep the section id: the footer links to #faq.
+// P5 builds this page.
 export default function Contact() {
   usePageTitle("Contact us", "Tell us about your project and we will get back to you.");
 
@@ -34,10 +32,7 @@ export default function Contact() {
       <Section bg="blue">
         <FinalCTA onCtaClick={scrollToForm} />
       </Section>
-
-      <Section id="faq" title="Frequently asked questions" bg="gray">
-        <FAQ />
-      </Section>
     </>
   );
 }
+
