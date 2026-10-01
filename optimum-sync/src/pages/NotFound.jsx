@@ -3,7 +3,7 @@ import Container from "../components/ui/Container";
 import Button from "../components/ui/Button";
 
 export default function NotFound() {
-  usePageTitle("Page not found");
+  usePageTitle("Page not found", "The requested page could not be found.", true);
   return (
     <section className="py-24 md:py-32">
       <Container className="text-center">

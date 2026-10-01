@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 
 const SITE = "Optimum Sync";
 const DEFAULT_TITLE = `${SITE} - Technology for a Better Tomorrow`;
+const DEFAULT_DESCRIPTION =
+  "Optimum Sync builds web, mobile, cloud and AI solutions that scale with your business.";
 const SITE_URL = "https://optimumsync.com";
 
 function setMetaTag(attribute, key, content) {
@@ -30,14 +32,10 @@ function setCanonical(url) {
   link.setAttribute("href", url);
 }
 
-// Call at the top of every page.
-// Example: usePageTitle("Services", "What we build for you.");
-export default function usePageTitle(title, description) {
+export default function usePageTitle(title, description, noindex = false) {
   useEffect(() => {
     const pageTitle = title ? `${title} | ${SITE}` : DEFAULT_TITLE;
-    const pageDescription =
-      description ||
-      "Optimum Sync builds web, mobile, cloud and AI solutions that scale with your business.";
+    const pageDescription = description || DEFAULT_DESCRIPTION;
 
     const path =
       window.location.pathname === "/"
@@ -49,7 +47,6 @@ export default function usePageTitle(title, description) {
     document.title = pageTitle;
 
     setMetaTag("name", "description", pageDescription);
-
     setCanonical(canonicalUrl);
 
     setMetaTag("property", "og:title", pageTitle);
@@ -58,5 +55,11 @@ export default function usePageTitle(title, description) {
 
     setMetaTag("name", "twitter:title", pageTitle);
     setMetaTag("name", "twitter:description", pageDescription);
-  }, [title, description]);
+
+    setMetaTag(
+      "name",
+      "robots",
+      noindex ? "noindex, nofollow" : "index, follow"
+    );
+  }, [title, description, noindex]);
 }
