@@ -16,11 +16,13 @@ import gsap from "gsap";
 
 import {
   ArrowUpRight,
+  Bot,
   ChevronDown,
   Cloud,
+  Code2,
   Globe2,
   Menu,
-  Megaphone,
+  ShoppingCart,
   Smartphone,
   X,
 } from "lucide-react";
@@ -64,33 +66,43 @@ const serviceItems = [
   {
     number: "01",
     title: "Web Development",
-    description:
-      "Websites, platforms & digital products",
+    description: "High-performance websites and web applications",
     to: "/services/web-development",
     icon: Globe2,
   },
   {
     number: "02",
     title: "Mobile App Development",
-    description:
-      "iOS, Android & cross-platform apps",
+    description: "Modern iOS, Android & cross-platform applications",
     to: "/services/mobile-development",
     icon: Smartphone,
   },
   {
     number: "03",
-    title: "Digital Marketing",
-    description:
-      "Growth, visibility & brand reach",
-    to: "/services/digital-marketing",
-    icon: Megaphone,
+    title: "Custom Software",
+    description: "Purpose-built software for your business workflows",
+    to: "/services/custom-software",
+    icon: Code2,
   },
   {
     number: "04",
-    title: "Cloud Hosting",
-    description:
-      "Scalable cloud infrastructure",
-    to: "/services/cloud-hosting",
+    title: "E-Commerce",
+    description: "Scalable digital commerce experiences",
+    to: "/services/e-commerce",
+    icon: ShoppingCart,
+  },
+  {
+    number: "05",
+    title: "AI & Automation",
+    description: "Practical AI solutions and intelligent automation",
+    to: "/services/ai-automation",
+    icon: Bot,
+  },
+  {
+    number: "06",
+    title: "Cloud & DevOps",
+    description: "Reliable cloud infrastructure and deployment workflows",
+    to: "/services/cloud-devops",
     icon: Cloud,
   },
 ];
@@ -317,10 +329,6 @@ function MobileNavigation({
                 <strong>
                   Optimum Sync
                 </strong>
-
-                <small>
-                  Technology Partner
-                </small>
               </span>
             </Link>
 
@@ -1006,10 +1014,6 @@ export default function Navbar() {
                 <strong>
                   Optimum Sync
                 </strong>
-
-                <small>
-                  Technology Partner
-                </small>
               </span>
 
             </Link>
