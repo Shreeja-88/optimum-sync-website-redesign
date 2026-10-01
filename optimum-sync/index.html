@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -45,6 +45,31 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://optimumsync.com/#organization",
+            "name": "Optimum Sync",
+            "url": "https://optimumsync.com/"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://optimumsync.com/#website",
+            "url": "https://optimumsync.com/",
+            "name": "Optimum Sync",
+            "description": "Optimum Sync builds web, mobile, cloud and AI solutions that scale with your business.",
+            "publisher": {
+              "@id": "https://optimumsync.com/#organization"
+            }
+          }
+        ]
+      }
+    </script>
+
   </head>
 
   <body>
