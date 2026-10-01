@@ -1,9 +1,13 @@
+import { useInView } from "./useInView";
 import Forming from "./Forming";
 import AccentText from "./AccentText";
+import WhyUsCard from "./WhyUsCard";
 import { whyUs } from "./aboutData";
 
 // id="why-us" is linked from the footer: keep it.
 export default function WhyUs() {
+  // One observer for the whole row: it never moves, so it always sees itself scroll into view.
+  const { ref, inView } = useInView({ threshold: 0.2 });
   return (
     <section id="why-us" className="os-hero os-hero--flip os-bg-off-white scroll-mt-24">
       <div className="mx-auto w-full max-w-6xl px-6 py-20 md:px-10 md:py-28">
@@ -18,30 +22,9 @@ export default function WhyUs() {
         </p>
 
         {/* One row on desktop: the number of columns follows the number of reasons. */}
-        <ul className="os-why-grid" style={{ "--os-cols": whyUs.items.length }}>
-          {whyUs.items.map((item) => (
-            <li key={item.title} className="os-why-card">
-              <div className={`os-why-media${item.image ? "" : " os-why-media--empty"}`}>
-                {item.image ? (
-                  <img
-                    src={item.image}
-                    alt={item.imageAlt ?? ""}
-                    loading="lazy"
-                    style={{ objectPosition: item.imagePosition ?? "center" }}
-                  />
-                ) : (
-                  <span aria-hidden="true">Image goes here (see aboutData.js)</span>
-                )}
-              </div>
-              <div className="os-why-body">
-                <h3 className="os-why-title">
-                  <Forming>{item.title}</Forming>
-                </h3>
-                <p className="os-why-text">
-                  <Forming>{item.text}</Forming>
-                </p>
-              </div>
-            </li>
+        <ul ref={ref} className="os-why-grid" style={{ "--os-cols": whyUs.items.length }}>
+          {whyUs.items.map((item, i) => (
+            <WhyUsCard key={item.title} item={item} index={i} inView={inView} />
           ))}
         </ul>
       </div>
