@@ -70,7 +70,7 @@ export default function ChatWidget() {
           <div className="flex items-center justify-between bg-brand px-4 py-3 text-white">
             <div>
               <p className="font-semibold">Optimum Sync Assistant</p>
-              <p className="text-xs opacity-80">Powered by Gemini</p>
+              <p className="text-xs opacity-80">AI Assistant</p>
             </div>
 
             <button
