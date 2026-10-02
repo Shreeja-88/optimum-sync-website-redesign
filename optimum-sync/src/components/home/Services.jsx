@@ -1,42 +1,49 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SERVICES } from "../../data/homeContent";
+import Forming from "../about/Forming";
 import Photo from "./Photo";
 import { ArrowRight } from "./Icons";
 
-// Each service is a card that stacks on top of the previous one as you
-// scroll (pure CSS sticky), echoing the "layers" in the hero.
+// One service open at a time; the others fold into thin vertical strips.
 export default function Services() {
+  const [a, setA] = useState(0);
+  const go = (i) => setA((i + SERVICES.length) % SERVICES.length);
+
   return (
-    <section className="services" aria-labelledby="services-title">
+    <section className="services sv" id="services" aria-labelledby="services-title">
       <div className="container">
-        <div className="services__top">
-          <h2 id="services-title">What we offer</h2>
-          <p>
-            We bring deep passion and creative problem solving to every client,
-            pushing the boundaries of what forward-thinking brands can do.
-          </p>
-          <Link to="/contact" className="btn btn--secondary">Let's talk</Link>
+        <div className="sv__hd">
+          <div>
+            <h2 id="services-title"><Forming>What we build</Forming></h2>
+            <p>From your first idea to a production-ready product, we build, launch and keep improving your digital presence.</p>
+          </div>
+          <div className="sv__ar">
+            <button type="button" aria-label="Previous service" onClick={() => go(a - 1)}>←</button>
+            <button type="button" aria-label="Next service" onClick={() => go(a + 1)}>→</button>
+          </div>
         </div>
 
-        <ul className="services__cards">
+        <div className="sv__car">
           {SERVICES.map((s, i) => (
-            <li
-              key={s.key} className="svc"
-              style={{ "--i": i, "--tint": s.tint, "--edge": s.edge, "--fill": s.fill }}
+            <div
+              key={s.key} className={`sv__c${i === a ? " on" : ""}`} style={{ background: s.fill }}
+              onClick={() => go(i)} tabIndex={i === a ? -1 : 0}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && go(i)}
+              aria-label={i === a ? undefined : `Show ${s.title}`}
             >
-              <div className="svc__body">
+              <Photo src={s.image} />
+              <span className="sv__v" aria-hidden="true">{s.title}</span>
+              <div className="sv__t">
                 <h3>{s.title}</h3>
                 <p>{s.text}</p>
-                <Link to={s.to} className="panel__link">
-                  Explore {s.title} <ArrowRight size={18} />
+                <Link to={s.to} className="panel__link" tabIndex={i === a ? 0 : -1}>
+                  Explore {s.title} <ArrowRight size={16} />
                 </Link>
               </div>
-              <div className="svc__media" aria-hidden="true">
-                <Photo src={s.image} />
-              </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
