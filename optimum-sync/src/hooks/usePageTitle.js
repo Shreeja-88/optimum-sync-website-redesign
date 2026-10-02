@@ -1,9 +1,10 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
 
 const SITE = "Optimum Sync";
-const DEFAULT_TITLE = `${SITE} - Technology for a Better Tomorrow`;
+const DEFAULT_TITLE =
+  "Optimum Sync | Digital Products, Software & AI Solutions";
 const DEFAULT_DESCRIPTION =
-  "Optimum Sync builds web, mobile, cloud and AI solutions that scale with your business.";
+  "Optimum Sync builds websites, mobile apps, custom software, e-commerce platforms and AI-powered solutions for businesses ready to grow.";
 const SITE_URL = "https://optimumsync.com";
 
 function setMetaTag(attribute, key, content) {
@@ -32,9 +33,19 @@ function setCanonical(url) {
   link.setAttribute("href", url);
 }
 
-export default function usePageTitle(title, description, noindex = false) {
+export default function usePageTitle(
+  title,
+  description,
+  noindex = false,
+  exactTitle = false
+) {
   useEffect(() => {
-    const pageTitle = title ? `${title} | ${SITE}` : DEFAULT_TITLE;
+    const pageTitle = exactTitle
+      ? title
+      : title
+        ? `${title} | ${SITE}`
+        : DEFAULT_TITLE;
+
     const pageDescription = description || DEFAULT_DESCRIPTION;
 
     const path =
@@ -61,5 +72,5 @@ export default function usePageTitle(title, description, noindex = false) {
       "robots",
       noindex ? "noindex, nofollow" : "index, follow"
     );
-  }, [title, description, noindex]);
+  }, [title, description, noindex, exactTitle]);
 }
