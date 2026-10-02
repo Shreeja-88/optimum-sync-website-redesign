@@ -10,8 +10,10 @@ import "../styles/home.css";
 // Layout.jsx (P1). Do NOT add them here.
 export default function Home() {
   usePageTitle(
-    "Home",
-    "Optimum Sync helps businesses build technology solutions for a better tomorrow."
+    "Optimum Sync | Digital Products, Software & AI Solutions",
+    "Optimum Sync builds websites, mobile apps, custom software, e-commerce platforms and AI-powered solutions for businesses ready to grow.",
+    false,
+    true
   );
 
   return (
