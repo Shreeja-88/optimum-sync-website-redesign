@@ -145,3 +145,29 @@
 .clients__grid h3 { font-size: 1.3rem; margin-top: 0.9rem; }
 .clients__grid p { font-size: 0.97rem; }
 .clients__pill { font-size: 0.78rem; padding: 0.3rem 0.8rem; }
+
+/* ===== Softer background behind text (no boxes) =====
+   A feathered white glow sits behind each text block, so the animation fades
+   out gently there and stays fully visible everywhere else.
+   Stronger: raise --text-fade (0.85 -> 0.95). More see-through: lower it. */
+.home { --text-fade: 0.85; position: relative; clip-path: inset(0); } /* clip-path cuts the fixed animation off at the end of the Home page (after the FAQ) */
+.home .hero__copy,
+.home .intro__grid > div:first-child,
+.home .wk-top > div:first-child,
+.home .audience__top > div,
+.home .tm h2,
+.home .faq h2 { position: relative; isolation: isolate; }
+.home .tm h2, .home .faq h2 { width: fit-content; max-width: 100%; }
+.home .hero__copy::before,
+.home .intro__grid > div:first-child::before,
+.home .wk-top > div:first-child::before,
+.home .audience__top > div::before,
+.home .tm h2::before,
+.home .faq h2::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  inset: -1.8rem -3rem;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, var(--text-fade)) 55%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Animation lives only inside <main class="home"> and is cut off after the FAQ */
+.bgwrap { position: absolute; inset: 0; z-index: 0; overflow: hidden; clip-path: inset(0); pointer-events: none; }
