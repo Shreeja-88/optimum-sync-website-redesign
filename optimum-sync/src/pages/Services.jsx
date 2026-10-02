@@ -51,7 +51,7 @@ const services = [
   {
     slug: "web-development",
     number: "01",
-    title: "Web Development",
+    title: "Web & SaaS Development",
     shortTitle: "Web",
     blurb:
       "High-performance websites and web applications designed around your business goals.",
@@ -900,7 +900,7 @@ export default function Services() {
                 <motion.img
                   src={serviceImages["web-development"]}
                   alt="Web development"
-                  className="h-64 w-full object-cover md:h-80"
+                  className="h-64 w-full object-cover rounded-2xl shadow-xl md:h-80"
                   whileHover={{
                     scale: 1.06,
                   }}
@@ -1032,7 +1032,7 @@ export default function Services() {
 
                     {/* IMAGE */}
 
-                    <div className="relative h-60 overflow-hidden">
+                    <div className="relative h-60 overflow-hidden shadow-lg">
 
                       <motion.img
                         src={serviceImages[service.slug]}

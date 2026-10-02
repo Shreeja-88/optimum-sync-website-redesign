@@ -12,7 +12,7 @@ export const navLinks = [
 export const services = [
   {
     slug: "web-development",
-    title: "Web Development",
+    title: "Web & SaaS Development",
     blurb:
       "Responsive, high-performance websites tailored to your unique brand needs.",
     icon: Code2,
