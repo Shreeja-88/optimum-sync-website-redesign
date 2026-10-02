@@ -9,6 +9,15 @@ import {
   Cloud,
   ArrowUpRight,
   Check,
+  Layers3,
+  LayoutDashboard,
+  Link2,
+  CreditCard,
+  Database,
+  Zap,
+  FileText,
+  Search,
+  BarChart3
 } from "lucide-react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
@@ -23,7 +32,7 @@ gsap.registerPlugin(ScrollTrigger);
    SERVICE IMAGES
 ========================================================= */
 
-const serviceImages = {
+export const serviceImages = {
   "web-development":
     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=85",
 
@@ -42,7 +51,6 @@ const serviceImages = {
   "cloud-devops":
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=85",
 };
-
 /* =========================================================
    SERVICES
 ========================================================= */
@@ -473,8 +481,15 @@ export default function Services() {
           HERO
       ================================================= */}
 
-      <section className="hero-section relative overflow-hidden border-b border-slate-200/70 bg-gradient-to-br from-[#eef9ff] via-white to-[#ecfffa]">
-
+      <section className="hero-section relative overflow-hidden border-b border-slate-200/70">
+        <div
+          className="absolute inset-0 -z-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=85')",
+          }}
+        />
+        <div className="absolute inset-0 -z-0 bg-white/80" />
         {/* Background grid */}
 
         <div
@@ -529,35 +544,35 @@ export default function Services() {
 
             <h1 className="max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.065em] text-charcoal sm:text-5xl md:text-6xl lg:text-[68px]">
 
-              <span className="hero-word inline-block">
-                Technology
-              </span>{" "}
+             <span className="hero-word inline-block">
+                  Digital
+                </span>{" "}
 
-              <span className="hero-word inline-block">
-                built
-              </span>{" "}
+                <span className="hero-word inline-block">
+                  Solutions
+                </span>{" "}
 
-              <span className="hero-word inline-block">
-                around
-              </span>
+                <span className="hero-word inline-block">
+                  built
+                </span>
 
-              <br />
+                <br />
 
-              <span className="hero-word inline-block text-brand">
-                your
-              </span>{" "}
+                <span className="hero-word inline-block text-brand">
+                  for
+                </span>{" "}
 
-              <span className="hero-word inline-block text-brand">
-                business.
-              </span>
+                <span className="hero-word inline-block text-brand">
+                  business growth.
+                </span>
 
             </h1>
 
             <p className="hero-description mt-7 max-w-2xl text-base leading-7 text-slate-600 md:text-lg">
 
-              From strategy to launch, we design and build digital products
-              that help businesses operate, grow, and scale.
-
+              From strategy to launch, we build scalable digital solutions
+              that help businesses streamline operations, engage customers,
+              and grow with confidence.
             </p>
 
             {/* Capability pills */}
@@ -587,6 +602,24 @@ export default function Services() {
                 </motion.span>
               ))}
 
+            </div>
+            {/* Hero CTAs */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/25"
+              >
+                Start a Project
+                <ArrowUpRight size={16} />
+              </Link>
+
+              <Link
+                to="/our-work"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-5 py-3 text-sm font-semibold text-charcoal shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:text-brand"
+              >
+                Explore Our Work
+                <ArrowUpRight size={16} />
+              </Link>
             </div>
 
             {/* Small trust signal */}
@@ -1126,28 +1159,72 @@ export default function Services() {
                         </p>
 
 
-                        <div className="space-y-2.5">
+                      <div className="grid grid-cols-2 gap-2">
+                        {service.details.features.slice(0, 5).map((feature, index) => (
+                          <motion.div
+                            key={feature}
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.4 }}
+                            transition={{ duration: 0.35, delay: index * 0.05 }}
+                            className="group/feature flex items-center gap-3 rounded-xl border border-slate-200/80 bg-slate-50/70 px-3 py-2.5 text-xs font-medium text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/30 hover:bg-brand/5 hover:text-slate-900 hover:shadow-sm"
+                          >
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand transition-all duration-300 group-hover/feature:scale-110 group-hover/feature:bg-brand group-hover/feature:text-white">
+                              {(() => {
+                                const iconMap = {
+                                  "Corporate Websites": Globe2,
+                                  "SaaS Platforms": Layers3,
+                                  "Web Applications": Code2,
+                                  "Business Dashboards": LayoutDashboard,
+                                  "Landing Pages": LayoutDashboard,
+                                  "API Integrations": Link2,
 
-                          {service.details.features
-                            .slice(0, 5)
-                            .map((feature) => (
-                              <div
-                                key={feature}
-                                className="flex items-center gap-2.5 text-xs font-medium text-slate-600 transition-transform duration-300 group-hover:translate-x-1"
-                              >
+                                  "Android": Smartphone,
+                                  "iOS": Smartphone,
+                                  "Cross-Platform Apps": Smartphone,
+                                  "Real-Time Apps": Zap,
+                                  "Payments": CreditCard,
+                                  "Push Notifications": Zap,
+                                  "Location & Tracking": Globe2,
 
-                                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand/10 text-brand">
+                                  "Business Management": LayoutDashboard,
+                                  "CRM/Internal Tools": LayoutDashboard,
+                                  "Automation": Zap,
+                                  "Admin Dashboards": LayoutDashboard,
+                                  "Workflow Management": Layers3,
+                                  "Integrations": Link2,
 
-                                  <Check className="h-3 w-3" />
+                                  "Online Stores": ShoppingCart,
+                                  "Custom E-Commerce": ShoppingCart,
+                                  "Payment Gateways": CreditCard,
+                                  "Inventory": Database,
+                                  "Order Management": LayoutDashboard,
+                                  "Customer Dashboards": LayoutDashboard,
 
-                                </span>
+                                  "AI Chatbots": Bot,
+                                  "Business Automation": Zap,
+                                  "AI Assistants": Bot,
+                                  "Document Processing": FileText,
+                                  "Data Analysis": BarChart3,
+                                  "AI Search": Search,
 
-                                {feature}
+                                  "Cloud Deployment": Cloud,
+                                  "Hosting": Cloud,
+                                  "CI/CD": Code2,
+                                  "Monitoring": BarChart3,
+                                  "Database Management": Database,
+                                };
 
-                              </div>
-                            ))}
+                                const FeatureIcon = iconMap[feature] || Check;
 
-                        </div>
+                                return <FeatureIcon className="h-3.5 w-3.5" />;
+                              })()}
+                            </span>
+
+                            <span className="leading-tight">{feature}</span>
+                          </motion.div>
+                        ))}
+                      </div>
 
                       </div>
 
