@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { HERO } from "../../data/homeContent";
-import FloatingLogo from "../about/FloatingLogo";
+import HeroLogo from "./HeroLogo";
 import Photo from "./Photo";
 
-// Team photo with the same floating 3D logo used on the About page.
+// Team photo with the same 3D logo as the About page (HeroLogo is the timer-free version).
 export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
@@ -22,7 +22,7 @@ export default function Hero() {
           <div className="hero__photo">
             <Photo src={HERO.photo} alt="Optimum Sync team celebrating a project win" />
           </div>
-          <div className="hero__logo"><FloatingLogo /></div>
+          <div className="hero__logo"><HeroLogo /></div>
         </div>
       </div>
     </section>
