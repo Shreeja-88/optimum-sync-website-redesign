@@ -5,10 +5,13 @@ import Forming from "../about/Forming";
 import Photo from "./Photo";
 import { ArrowRight } from "./Icons";
 
+const pad = (n) => String(n).padStart(2, "0");
+
 // One service open at a time; the others fold into thin vertical strips.
 export default function Services() {
   const [a, setA] = useState(0);
-  const go = (i) => setA((i + SERVICES.length) % SERVICES.length);
+  const total = SERVICES.length;
+  const go = (i) => setA((i + total) % total);
 
   return (
     <section className="services sv" id="services" aria-labelledby="services-title">
@@ -19,6 +22,7 @@ export default function Services() {
             <p>From your first idea to a production-ready product, we build, launch and keep improving your digital presence.</p>
           </div>
           <div className="sv__ar">
+            <span className="sv__cnt" aria-live="polite">{pad(a + 1)} / {pad(total)}</span>
             <button type="button" aria-label="Previous service" onClick={() => go(a - 1)}>←</button>
             <button type="button" aria-label="Next service" onClick={() => go(a + 1)}>→</button>
           </div>
@@ -35,8 +39,13 @@ export default function Services() {
               <Photo src={s.image} />
               <span className="sv__v" aria-hidden="true">{s.title}</span>
               <div className="sv__t">
+                <small className="sv__n">{pad(i + 1)} / {pad(total)}</small>
                 <h3>{s.title}</h3>
-                <p>{s.text}</p>
+                <p className="sv__sub">{s.sub}</p>
+                <p className="sv__tx">{s.text}</p>
+                <ul className="sv__chips">
+                  {s.includes.map((c) => <li key={c}>{c}</li>)}
+                </ul>
                 <Link to={s.to} className="panel__link" tabIndex={i === a ? 0 : -1}>
                   Explore {s.title} <ArrowRight size={16} />
                 </Link>

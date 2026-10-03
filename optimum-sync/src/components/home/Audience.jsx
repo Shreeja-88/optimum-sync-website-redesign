@@ -22,6 +22,13 @@ export default function Audience() {
     return () => clearTimeout(t); // any click changes `key`, which restarts the 5s wait
   }, [key]);
 
+  // Feeds the hover spotlight (effect 4): the light follows the pointer over the photo.
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+
   return (
     <section className="section audience" aria-labelledby="audience-title">
       <div className="container">
@@ -48,10 +55,12 @@ export default function Audience() {
           })}
         </div>
 
-        <div className="stage" style={{ "--fallback": current.fallback }}>
+        <div className="stage" style={{ "--fallback": current.fallback }} onPointerMove={onMove}>
           {AUDIENCE.map((a) => (
             <Photo key={a.key} src={a.image} className={`stage__img${a.key === key ? " is-on" : ""}`} />
           ))}
+          {/* New element on every tab change, so its light sweep plays again (effect 3) */}
+          <span className="stage__sheen" key={`sheen-${current.key}`} aria-hidden="true" />
           <div className="stage__copy" key={current.key} aria-live="polite">
             <h3>{current.title}</h3>
             <p>{current.text}</p>
