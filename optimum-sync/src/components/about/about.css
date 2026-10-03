@@ -543,18 +543,16 @@
 }
 
 /* ------------------------------------------------------------------
-   Floating 3D logo (hero), used by FloatingLogo.jsx
-   ------------------------------------------------------------------ */
-/* ------------------------------------------------------------------
    Floating 3D logo (hero), used by FloatingLogo.jsx.
-   Two real layers (dark shape behind, blue bars in front) sit at
-   different simulated depths via translateZ. Because the wrapper uses
-   real CSS 3D (perspective + preserve-3d), rotating it makes the two
-   layers shift against each other on their own — genuine parallax,
-   not a faked offset. One plain `transform` keyframe animation handles
-   the idle bob+sway; on pointer hover the animation is switched off so
-   JS-set CSS variables can drive `transform` directly, instead of the
-   two ever fighting over the same property.
+   Three real pieces (dark shape, and the two blue bars separately) sit
+   at different simulated depths via translateZ. On first paint each
+   piece flies in from off-screen and settles — the dark piece from the
+   left, the two bars from the right, slightly offset from each other —
+   then the whole thing settles into a gentle automatic sway, which
+   keeps showing the same depth via real CSS 3D (perspective +
+   preserve-3d), since rotating it shifts the layers against each other
+   on their own. Pointer movement on desktop takes over the tilt
+   directly once assembled; the assembly itself only ever plays once.
    ------------------------------------------------------------------ */
 .os-logo-float-wrap {
   position: relative;
@@ -567,30 +565,55 @@
   --os-tilt-x: 0deg;
   --os-tilt-y: 0deg;
   position: relative;
+  aspect-ratio: 1 / 1;
   transform-style: preserve-3d;
-  animation: os-logo-idle 11s ease-in-out infinite;
   transition: transform 0.25s ease-out;
+}
+.os-logo-float.is-assembled {
+  animation: os-logo-idle 11s ease-in-out infinite;
 }
 .os-logo-float.is-hovering {
   animation: none;
   transform: rotateX(var(--os-tilt-x)) rotateY(var(--os-tilt-y));
 }
-.os-logo-layer {
-  position: relative;
+.os-logo-piece {
+  position: absolute;
+  inset: 0;
+  transition:
+    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.8s ease;
 }
-.os-logo-layer--back {
-  transform: translateZ(-16px);
+.os-logo-piece--dark {
+  transform: translateZ(-16px) translateX(-34%);
+  opacity: 0;
   filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.22));
 }
-.os-logo-layer--front {
-  margin-top: -100%; /* stack exactly on top of the back layer */
-  transform: translateZ(20px);
+.os-logo-piece--bar1 {
+  transform: translateZ(20px) translateX(38%);
+  opacity: 0;
+  transition-delay: 0.1s;
   filter: drop-shadow(0 16px 20px rgba(20, 121, 176, 0.35));
+}
+.os-logo-piece--bar2 {
+  transform: translateZ(20px) translateX(44%);
+  opacity: 0;
+  transition-delay: 0.2s;
+  filter: drop-shadow(0 16px 20px rgba(20, 121, 176, 0.35));
+}
+.os-logo-float.is-assembled .os-logo-piece--dark {
+  transform: translateZ(-16px) translateX(0);
+  opacity: 1;
+}
+.os-logo-float.is-assembled .os-logo-piece--bar1,
+.os-logo-float.is-assembled .os-logo-piece--bar2 {
+  transform: translateZ(20px) translateX(0);
+  opacity: 1;
 }
 .os-logo-float-img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 .os-logo-float-shadow {
   width: 62%;
@@ -598,6 +621,11 @@
   margin: 0.5rem auto 0;
   border-radius: 999px;
   background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.28), transparent 72%);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.3s;
+}
+.os-logo-float-wrap.is-assembled .os-logo-float-shadow {
+  opacity: 0.55;
   animation: os-logo-shadow 11s ease-in-out infinite;
 }
 @keyframes os-logo-idle {
@@ -629,10 +657,14 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .os-logo-float {
+  .os-logo-piece {
+    transition: none;
+  }
+  .os-logo-float.is-assembled {
     animation: none;
   }
-  .os-logo-float-shadow {
+  .os-logo-float-wrap.is-assembled .os-logo-float-shadow {
     animation: none;
+    opacity: 0.55;
   }
 }
