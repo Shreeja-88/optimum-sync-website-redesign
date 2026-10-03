@@ -175,6 +175,7 @@ function MobileNavigation({
 
   useEffect(() => {
     if (pathname.startsWith("/services")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setServicesExpanded(true);
     }
   }, [pathname]);
@@ -699,6 +700,7 @@ export default function Navbar() {
   ======================================================= */
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setServicesOpen(false);
     setMobileOpen(false);
   }, [pathname]);
