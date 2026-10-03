@@ -11,9 +11,23 @@ export default function PageHeader({
   subtitle,
   crumbs = [],
   children,
+  backgroundImage,
 }) {
   return (
     <section className="relative overflow-hidden bg-pale-blue">
+      {backgroundImage && (
+  <motion.img
+    src={backgroundImage}
+    alt=""
+    aria-hidden="true"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 0.75 }}
+    transition={{ duration: 1 }}
+    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+  />
+)}
+
+  <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/20" />
       {/* Animated background glow */}
       <motion.div
         aria-hidden="true"
@@ -92,7 +106,7 @@ export default function PageHeader({
               items-center
               gap-1
               text-sm
-              text-text-secondary
+              text-slate-300
             "
           >
             <Link
@@ -145,7 +159,7 @@ export default function PageHeader({
                 ) : (
                   <span
                     aria-current="page"
-                    className="font-medium text-charcoal"
+                    className="font-medium text-slate-300"
                   >
                     {c.label}
                   </span>
@@ -176,7 +190,7 @@ export default function PageHeader({
               text-4xl
               font-extrabold
               tracking-tight
-              text-charcoal
+              text-white
               md:text-5xl
             "
           >
@@ -228,7 +242,7 @@ export default function PageHeader({
                 mt-4
                 max-w-2xl
                 text-lg
-                text-text-secondary
+                text-slate-300
               "
             >
               {subtitle}

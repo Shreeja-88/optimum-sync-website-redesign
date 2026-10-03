@@ -1,18 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { HERO, SERVICES } from "../../data/homeContent";
+import { HERO } from "../../data/homeContent";
+import HeroLogo from "./HeroLogo";
+import Photo from "./Photo";
 
-// The hero's one big idea: the four services are layers of a single system,
-// echoing the isometric cube in the Optimum Sync logo. Each layer wears its
-// service photo. Layers drop in and lock together on load; hovering a service
-// lifts its layer.
+// Team photo with the same 3D logo as the About page (HeroLogo is the timer-free version).
 export default function Hero() {
-  const [active, setActive] = useState(null);
-  const current = SERVICES.find((s) => s.key === active);
-
-  const on = (key) => () => setActive(key);
-  const off = () => setActive(null);
-
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero__inner">
@@ -20,43 +12,17 @@ export default function Hero() {
           <h1 id="hero-title">{HERO.title}</h1>
           <p className="hero__lead">{HERO.text}</p>
           <div className="hero__actions">
-            <Link to="/contact" className="btn btn--primary">Start a Conversation</Link>
-            <a href="#projects" className="btn btn--secondary">See our work</a>
+            <Link to="/contact" className="btn btn--primary">Start a Project →</Link>
+            <a href="#projects" className="btn btn--secondary">Explore Our Work →</a>
           </div>
+          <p className="hero__tags">{HERO.tags}</p>
         </div>
 
-        <div className="stack">
-          <div className="stack__stage" aria-hidden="true">
-            <div className="stack__scene">
-              <span className="stack__ground" />
-              {SERVICES.map((s) => (
-                <span
-                  key={s.key}
-                  className={`slab${active === s.key ? " is-active" : ""}`}
-                  style={{ "--layer": s.layer, "--fill": s.fill, "--edge": s.edge, "--photo": s.image ? `url("${s.image}")` : "none" }}
-                />
-              ))}
-            </div>
+        <div className="hero__visual">
+          <div className="hero__photo">
+            <Photo src={HERO.photo} alt="Optimum Sync team celebrating a project win" />
           </div>
-
-          <ul className="stack__legend">
-            {SERVICES.map((s) => (
-              <li key={s.key}>
-                <button
-                  type="button"
-                  className={active === s.key ? "is-on" : ""}
-                  onMouseEnter={on(s.key)} onMouseLeave={off}
-                  onFocus={on(s.key)} onBlur={off}
-                >
-                  <i style={{ background: s.fill }} />
-                  {s.title}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p className="stack__caption" aria-live="polite">
-            {current ? current.text : "Four layers, one connected system."}
-          </p>
+          <div className="hero__logo"><HeroLogo /></div>
         </div>
       </div>
     </section>

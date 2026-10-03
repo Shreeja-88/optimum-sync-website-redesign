@@ -65,7 +65,7 @@ const primaryLinks = [
 const serviceItems = [
   {
     number: "01",
-    title: "Web Development",
+    title: "Web & SaaS Development",
     description: "High-performance websites and web applications",
     to: "/services/web-development",
     icon: Globe2,

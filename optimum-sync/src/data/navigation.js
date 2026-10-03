@@ -1,4 +1,11 @@
-import { Cloud, Code2, Smartphone } from "lucide-react";
+import {
+  Globe2,
+  Smartphone,
+  Code2,
+  ShoppingCart,
+  Bot,
+  Cloud,
+} from "lucide-react";
 import { FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
 export const navLinks = [
@@ -12,14 +19,14 @@ export const navLinks = [
 export const services = [
   {
     slug: "web-development",
-    title: "Web Development",
+    title: "Web & SaaS Development",
     blurb:
-      "Responsive, high-performance websites tailored to your unique brand needs.",
-    icon: Code2,
+      "Responsive, high-performance websites and SaaS solutions tailored to your business needs.",
+    icon: Globe2,
     details: {
       heading: "Build better digital experiences",
       description:
-        "We create modern, responsive and scalable websites that help businesses connect with their customers and grow online.",
+        "We create modern, responsive and scalable websites and SaaS solutions that help businesses connect with customers and grow online.",
       features: [
         "Responsive and user-friendly websites",
         "Modern technologies and best practices",
@@ -39,8 +46,9 @@ export const services = [
 
   {
     slug: "mobile-development",
-    title: "Mobile Development",
-    blurb: "iOS and Android apps people enjoy using.",
+    title: "Mobile App Development",
+    blurb:
+      "Intuitive iOS and Android applications designed for smooth digital experiences.",
     icon: Smartphone,
     details: {
       heading: "Build powerful mobile experiences",
@@ -64,53 +72,107 @@ export const services = [
   },
 
   {
-    slug: "digital-marketing",
-    title: "Digital Marketing",
+    slug: "custom-software",
+    title: "Custom Software",
     blurb:
-      "Strategic online marketing to boost your brand visibility.",
-    icon: Cloud,
+      "Purpose-built software solutions designed around your business processes.",
+    icon: Code2,
     details: {
-      heading: "Grow your digital presence",
+      heading: "Software built around your business",
       description:
-        "We help businesses strengthen their online presence through strategic digital marketing solutions designed to reach the right audience.",
+        "We develop custom software solutions that simplify workflows, solve business-specific challenges and support long-term growth.",
       features: [
-        "Strategic digital marketing campaigns",
-        "Improved online brand visibility",
-        "Audience-focused marketing strategies",
-        "Data-driven growth and engagement",
+        "Business-specific software solutions",
+        "Scalable and maintainable architecture",
+        "Workflow-focused development",
+        "Secure and reliable applications",
       ],
       technologies: [
-        "Google Analytics",
-        "Google Ads",
-        "Facebook Ads",
-        "Brevo",
-        "Apollo AI",
-        "Canva",
+        "React",
+        "Node.js",
+        "Python",
+        "Java",
+        "MongoDB",
+        "MySQL",
       ],
     },
   },
 
   {
-    slug: "cloud-hosting",
-    title: "Cloud Hosting",
+    slug: "e-commerce",
+    title: "E-Commerce",
     blurb:
-      "Scalable and reliable cloud infrastructure for your business.",
+      "Modern e-commerce experiences designed to help businesses sell online.",
+    icon: ShoppingCart,
+    details: {
+      heading: "Create better online shopping experiences",
+      description:
+        "We build user-friendly e-commerce solutions that make it easier for businesses to showcase products, manage sales and serve customers online.",
+      features: [
+        "Modern and responsive storefronts",
+        "Secure shopping experiences",
+        "Product and order management",
+        "Scalable e-commerce solutions",
+      ],
+      technologies: [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "WordPress",
+        "PHP",
+        "MySQL",
+      ],
+    },
+  },
+
+  {
+    slug: "ai-automation",
+    title: "AI & Automation",
+    blurb:
+      "Intelligent solutions that automate workflows and improve business efficiency.",
+    icon: Bot,
+    details: {
+      heading: "Make your business smarter with AI",
+      description:
+        "We integrate AI and automation into business workflows to reduce repetitive work, improve efficiency and create smarter digital experiences.",
+      features: [
+        "AI-powered business solutions",
+        "Workflow and process automation",
+        "Intelligent data-driven systems",
+        "AI integrations tailored to business needs",
+      ],
+      technologies: [
+        "Python",
+        "AI APIs",
+        "Machine Learning",
+        "OpenAI",
+        "Automation",
+        "REST APIs",
+      ],
+    },
+  },
+
+  {
+    slug: "cloud-devops",
+    title: "Cloud & DevOps",
+    blurb:
+      "Reliable cloud infrastructure and deployment solutions built for scale.",
     icon: Cloud,
     details: {
       heading: "Scale with reliable cloud infrastructure",
       description:
-        "We provide scalable and dependable cloud solutions that help businesses deploy, manage and grow their digital services.",
+        "We provide scalable and dependable cloud and DevOps solutions that help businesses deploy, manage and grow their digital services.",
       features: [
         "Scalable cloud infrastructure",
-        "Reliable and secure hosting",
-        "High-performance application deployment",
+        "Reliable and secure deployment",
+        "High-performance application hosting",
         "Infrastructure designed for business growth",
       ],
       technologies: [
         "Kubernetes",
         "Cloudflare",
         "Docker",
-        "Hostinger",
+        "AWS",
         "MySQL",
         "Redis",
       ],
