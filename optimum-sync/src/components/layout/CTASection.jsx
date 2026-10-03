@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Sparkles, Layers3, Code2 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +9,8 @@ import "../../styles/cta.css";
 gsap.registerPlugin(ScrollTrigger);
 
 function CTASection() {
+  const { pathname } = useLocation();
+
   const sectionRef = useRef(null);
   const visualRef = useRef(null);
   const buttonRef = useRef(null);
@@ -40,6 +42,10 @@ function CTASection() {
       const center =
         section.querySelector(".cta-system-core");
 
+      /* =========================================
+         REDUCED MOTION
+      ========================================= */
+
       if (reduceMotion) {
         gsap.set(
           [
@@ -48,6 +54,7 @@ function CTASection() {
             description,
             buttonEl,
             meta,
+            visual,
             ...visualItems,
           ],
           {
@@ -109,6 +116,7 @@ function CTASection() {
           trigger: section,
           start: "top 78%",
           once: true,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -346,6 +354,18 @@ function CTASection() {
         );
       }
 
+      /* =========================================
+         REFRESH SCROLLTRIGGER AFTER ROUTE CHANGE
+      ========================================= */
+
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+
+      /* =========================================
+         CLEANUP
+      ========================================= */
+
       return () => {
         if (button) {
           button.removeEventListener(
@@ -374,7 +394,7 @@ function CTASection() {
     }, section);
 
     return () => ctx.revert();
-  }, []);
+  }, [pathname]);
 
   return (
     <section
@@ -388,10 +408,7 @@ function CTASection() {
         <div className="cta-background-glow cta-background-glow--blue" />
         <div className="cta-background-glow cta-background-glow--mint" />
 
-        {/* =========================================
-            LEFT CONTENT
-        ========================================= */}
-
+        {/* LEFT CONTENT */}
         <div className="cta-content">
 
           <div className="cta-eyebrow">
@@ -434,12 +451,10 @@ function CTASection() {
             <i />
             <span>ENGINEERING</span>
           </div>
+
         </div>
 
-        {/* =========================================
-            RIGHT SAAS SYSTEM
-        ========================================= */}
-
+        {/* RIGHT SAAS SYSTEM */}
         <div
           ref={visualRef}
           className="cta-visual"
@@ -453,20 +468,17 @@ function CTASection() {
           </div>
 
           {/* Connection lines */}
-
           <div className="cta-line cta-line--one" />
           <div className="cta-line cta-line--two" />
           <div className="cta-line cta-line--three" />
 
           {/* Main Core */}
-
           <div
             className="cta-system-core cta-visual-item"
           >
             <div className="cta-core-glow" />
 
             <div className="cta-core-inner">
-              
               <span className="cta-core-name">
                 OPTIMUM
                 <br />
@@ -481,7 +493,6 @@ function CTASection() {
           </div>
 
           {/* Workflow Card 1 */}
-
           <div
             className="
               cta-workflow-card
@@ -502,7 +513,6 @@ function CTASection() {
           </div>
 
           {/* Workflow Card 2 */}
-
           <div
             className="
               cta-workflow-card
@@ -523,7 +533,6 @@ function CTASection() {
           </div>
 
           {/* Workflow Card 3 */}
-
           <div
             className="
               cta-workflow-card
@@ -544,7 +553,6 @@ function CTASection() {
           </div>
 
           {/* Bottom status */}
-
           <div className="cta-system-footer cta-visual-item">
             <span>
               <i />
@@ -555,10 +563,10 @@ function CTASection() {
               BUILD / INNOVATE / GROW
             </small>
           </div>
+
         </div>
 
         {/* Bottom edge */}
-
         <div className="cta-bottom">
           <span>OPTIMUM SYNC</span>
 
@@ -574,6 +582,7 @@ function CTASection() {
             TECHNOLOGY PARTNER
           </span>
         </div>
+
       </div>
     </section>
   );
