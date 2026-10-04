@@ -11,10 +11,30 @@ const pages = [
 ];
 
 const services = [
-  { label: "Web Development", to: "/services" },
-  { label: "App Development", to: "/services" },
-  { label: "Digital Marketing", to: "/services" },
-  { label: "Cloud Hosting", to: "/services" },
+  {
+    label: "Web & SaaS Development",
+    to: "/services/web-development",
+  },
+  {
+    label: "Mobile App Development",
+    to: "/services/mobile-development",
+  },
+  {
+    label: "Custom Software",
+    to: "/services/custom-software",
+  },
+  {
+    label: "E-Commerce",
+    to: "/services/e-commerce",
+  },
+  {
+    label: "AI & Automation",
+    to: "/services/ai-automation",
+  },
+  {
+    label: "Cloud & DevOps",
+    to: "/services/cloud-devops",
+  },
 ];
 
 const socials = [
