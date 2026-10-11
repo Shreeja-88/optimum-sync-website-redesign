@@ -5,7 +5,6 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import CTASection from "./CTASection";
 import ChatWidget from "../chat/ChatWidget";
-import PageLoader from "./PageLoader";
 import AmbientBackground from "./AmbientBackground";
 
 
@@ -52,8 +51,6 @@ export default function Layout() {
       <AmbientBackground />
 
       <ScrollToTop />
-
-      <PageLoader />
 
       <div className="site-shell__content">
 
