@@ -2216,3 +2216,362 @@
       none !important;
   }
 }
+
+/* =========================================================
+   OPTIMUM SYNC — NAVBAR CONTRAST ENHANCEMENT
+   Append this at the END of navbar.css
+========================================================= */
+
+/* Stronger glass surface */
+.navbar-shell {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(148, 163, 184, 0.28);
+
+  box-shadow:
+    0 12px 35px rgba(15, 23, 42, 0.09),
+    0 2px 8px rgba(15, 23, 42, 0.035),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Better separation after scrolling */
+.navbar-scrolled .navbar-shell {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(32, 159, 227, 0.22);
+
+  box-shadow:
+    0 12px 35px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Darker brand text */
+.navbar-brand-copy strong {
+  color: #111827;
+}
+
+/* Darker, more readable navigation */
+.navbar-link {
+  color: #475569;
+}
+
+.navbar-link:hover,
+.navbar-link-active {
+  color: #0f172a;
+}
+
+/* More visible active navigation pill */
+.navbar-active-indicator {
+  background: rgba(32, 159, 227, 0.09);
+  border-color: rgba(32, 159, 227, 0.22);
+
+  box-shadow:
+    0 4px 14px rgba(32, 159, 227, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Stronger logo container */
+.navbar-logo-box {
+  background: rgba(241, 245, 249, 0.8);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+/* Refined blue CTA */
+.navbar-cta {
+  background: linear-gradient(
+    135deg,
+    #209fe3,
+    #087fbd
+  );
+
+  box-shadow:
+    0 6px 18px rgba(32, 159, 227, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Subtle hover outline */
+.navbar-shell:hover {
+  border-color: rgba(32, 159, 227, 0.28);
+}
+
+/* =========================================================
+   OPTIMUM SYNC — LIGHT PREMIUM NAVBAR
+   Append after all existing navbar.css styles
+========================================================= */
+
+:root {
+  --nav-surface: #ffffff;
+  --nav-text: #111827;
+  --nav-text-muted: #475569;
+  --nav-border: #d5e0eb;
+  --nav-blue: #168fd0;
+  --nav-blue-soft: #eaf5fc;
+  --nav-shadow: 0 12px 32px rgba(15, 35, 60, 0.10);
+  --nav-shadow-hover: 0 16px 40px rgba(15, 35, 60, 0.14);
+}
+
+/* 1. HEADER SPACING */
+.navbar-wrapper {
+  padding-top: 12px;
+}
+
+.navbar-wrapper.navbar-scrolled {
+  padding-top: 8px;
+}
+
+/* 2. DISTINCT WHITE NAVBAR SURFACE */
+.navbar-shell {
+  min-height: 74px;
+  padding: 8px 10px 8px 16px;
+
+  background: var(--nav-surface);
+  border: 1px solid var(--nav-border);
+  border-radius: 20px;
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  box-shadow:
+    0 10px 28px rgba(15, 35, 60, 0.08),
+    0 2px 5px rgba(15, 35, 60, 0.035),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+
+  transition:
+    min-height 0.3s ease,
+    padding 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    border-radius 0.3s ease;
+}
+
+.navbar-shell:hover {
+  border-color: #bdcedf;
+  box-shadow: var(--nav-shadow-hover);
+}
+
+/* Subtle compact state on scroll */
+.navbar-scrolled .navbar-shell {
+  min-height: 64px;
+  background: rgba(255, 255, 255, 0.97);
+  border-color: #cbd9e7;
+
+  box-shadow:
+    0 10px 30px rgba(15, 35, 60, 0.12),
+    0 2px 6px rgba(15, 35, 60, 0.04);
+}
+
+/* 3. RESTRAINED LIGHT SWEEP */
+.navbar-light {
+  width: 20%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(32, 159, 227, 0.07),
+    transparent
+  );
+}
+
+/* 4. BRAND AND LOGO */
+.navbar-brand {
+  color: var(--nav-text);
+}
+
+.navbar-brand-copy strong {
+  color: var(--nav-text);
+  font-size: 16px;
+  font-weight: 780;
+  letter-spacing: -0.045em;
+}
+
+.navbar-logo-box {
+  background: #f4f8fc;
+  border: 1px solid #e0e9f1;
+  border-radius: 12px;
+
+  box-shadow: inset 0 1px 0 #ffffff;
+}
+
+.navbar-brand:hover .navbar-logo-box {
+  background: #eaf5fc;
+}
+
+/* 5. DESKTOP NAVIGATION */
+.navbar-navigation {
+  gap: 4px;
+  margin-right: 22px;
+}
+
+.navbar-link {
+  min-height: 42px;
+  padding: 0 13px;
+
+  color: var(--nav-text-muted);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+
+  transition:
+    color 0.22s ease,
+    background 0.22s ease;
+}
+
+.navbar-link:hover {
+  color: #087fbd;
+}
+
+.navbar-link-active {
+  color: #111827;
+}
+
+/* 6. VISIBLE ACTIVE LINK PILL */
+.navbar-active-indicator {
+  top: 3px;
+  height: calc(100% - 6px);
+
+  background: var(--nav-blue-soft);
+  border: 1px solid #d4eaf8;
+  border-radius: 11px;
+
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.navbar-active-indicator::after {
+  bottom: 0;
+  left: 28%;
+  right: 28%;
+
+  height: 2px;
+  background: var(--nav-blue);
+  filter: none;
+  opacity: 1;
+}
+
+.navbar-link-active::after {
+  display: none;
+}
+
+/* 7. SERVICES CONTROL */
+.navbar-services-button {
+  color: #64748b;
+}
+
+.navbar-services-button:hover {
+  color: #087fbd;
+  background: #edf7fd;
+}
+
+.navbar-services-button:focus-visible {
+  outline: 2px solid var(--nav-blue);
+  outline-offset: 2px;
+}
+
+/* 8. PREMIUM BLUE CTA */
+.navbar-cta {
+  min-height: 44px;
+  padding: 0 17px;
+  gap: 9px;
+
+  background: var(--nav-blue);
+  background-size: 100% 100%;
+
+  border: 1px solid #1685c0;
+  border-radius: 12px;
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 750;
+
+  box-shadow:
+    0 5px 14px rgba(22, 143, 208, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  animation: none;
+}
+
+.navbar-cta:hover {
+  background: #087fbd;
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px rgba(22, 143, 208, 0.26);
+}
+
+/* 9. MOBILE MENU BUTTON */
+.navbar-mobile-button {
+  color: #1e293b;
+  background: #f4f8fc;
+  border: 1px solid #dbe5ef;
+  border-radius: 12px;
+}
+
+.navbar-mobile-button:hover {
+  color: #087fbd;
+  background: #eaf5fc;
+  border-color: #c5e2f4;
+}
+
+/* 10. KEYBOARD ACCESSIBILITY */
+.navbar-shell a:focus-visible,
+.navbar-shell button:focus-visible {
+  outline: 2px solid var(--nav-blue);
+  outline-offset: 3px;
+}
+
+/* 11. TABLET ADJUSTMENTS */
+@media (max-width: 1050px) {
+  .navbar-navigation {
+    gap: 2px;
+    margin-right: 10px;
+  }
+
+  .navbar-link {
+    padding: 0 10px;
+  }
+}
+
+/* 12. MOBILE ADJUSTMENTS */
+@media (max-width: 767px) {
+  .navbar-wrapper {
+    padding-top: 9px;
+  }
+
+  .navbar-wrapper.navbar-scrolled {
+    padding-top: 7px;
+  }
+
+  .navbar-shell {
+    min-height: 60px;
+    padding: 6px 8px;
+    border-radius: 16px;
+  }
+
+  .navbar-scrolled .navbar-shell {
+    min-height: 58px;
+  }
+
+  .navbar-logo-box {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-mobile-button {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* 13. REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-light {
+    animation: none;
+  }
+
+  .navbar-shell,
+  .navbar-cta,
+  .navbar-link,
+  .navbar-logo-box {
+    transition: none;
+    animation: none;
+  }
+}

@@ -12,22 +12,10 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-function PageLoader() {
-  return (
-    <div
-      className="flex min-h-[40vh] items-center justify-center"
-      role="status"
-      aria-label="Loading page"
-    >
-      <span className="text-text-secondary">Loading...</span>
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={null}>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
